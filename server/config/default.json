@@ -1,0 +1,5 @@
+{
+  "serverPort": 5000,
+  "dbUrl": "mongodb+srv://artint:CjGhfP2tXDdlydqg@cluster0.nhzdz.mongodb.net/intern-bd?retryWrites=true&w=majority",
+  "secretKey": "klkDMlsadfdjGG"
+}

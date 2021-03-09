@@ -1,0 +1,41 @@
+.header {
+    margin-bottom: 100px;
+    background: #343A40;
+    padding: 10px 0;
+}
+.header a {
+    color: #fff;
+    text-decoration: none;
+}
+.header a:hover {
+    color: #f0f0f0;
+    text-decoration: none;
+}
+.header-content {
+    display: flex;
+    justify-content: space-between;
+}
+.logo {
+    width: 160px;
+}
+.logo img {
+    width: 150px;
+}
+.menu-header {
+    display: flex;
+    color: #fff;
+    margin-top: 8px;
+}
+.menu-logout {
+    color: #fff;
+    cursor: pointer;
+}
+.menu-header a {
+    margin-right: 40px;
+}
+.log-in {
+    margin-top: 8px;
+}
+.log-in a {
+    margin: 8px 20px 0 0;
+}

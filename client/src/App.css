@@ -1,0 +1,19 @@
+.list-form {
+  background: #F7f7f7;
+  margin-top: 25px;
+  padding: 5px 20px;
+  border-radius: 10px;
+}
+.list-form input {
+  width: 250px;
+  padding: 11px 12px;
+  border-radius: 3px;
+  margin-right: 10px;
+  border: 1px solid #D4DEE8;
+}
+.list-form select {
+  width: 250px;
+  padding: 11px 12px;
+  border-radius: 3px;
+  border: 1px solid #D4DEE8;
+}
