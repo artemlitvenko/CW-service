@@ -1,6 +1,6 @@
 import React from 'react';
 import './MastersList.css';
-import Masters from "./Masters";
+import Masters from "../masters/Masters";
 
 
 const MastersList = () => {

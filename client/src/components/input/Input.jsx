@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Input = (props) => {
+const Input = ({setValue, value, type, placeholder}) => {
     return (
         <div>
             <input className="input-text"
-                   onChange={(event) => props.setValue(event.target.value)}
-                   value={props.value}
-                   type={props.type}
-                   placeholder={props.placeholder}
+                   onChange={(event) => setValue(event.target.value)}
+                   value={value}
+                   type={type}
+                   placeholder={placeholder}
             />
         </div>
     );

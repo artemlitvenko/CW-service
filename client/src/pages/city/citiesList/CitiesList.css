@@ -1,0 +1,9 @@
+
+.cities-list-title {
+  display: flex;
+  justify-content: space-between;
+}
+.cities-list-title button {
+  width: 130px;
+  min-height: 40px;
+}

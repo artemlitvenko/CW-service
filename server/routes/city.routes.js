@@ -2,7 +2,6 @@ const Router = require('express');
 const router = new Router();
 const City = require('../models/City.js');
 
-
 router.post("", async (req, res) => {
     try {
         const {city_name} = req.body;
@@ -21,7 +20,7 @@ router.get("", async (req, res) => {
     }
 });
 
-router.put("", async (req, res) => {
+router.put("/:id", async (req, res) => {
     try {
         const city = req.body;
         if(!city._id) {
@@ -29,13 +28,12 @@ router.put("", async (req, res) => {
         }
         const updatedCity = await City.findByIdAndUpdate(city._id, city, {new: true});
         return res.json(updatedCity);
-
     } catch (e) {
         res.status(500).json(e);
     }
 });
 
-router.delete(":id", async (req, res) => {
+router.delete("/:id", async (req, res) => {
     try {
         const {id} = req.params;
         if(!id) {
@@ -44,7 +42,8 @@ router.delete(":id", async (req, res) => {
         const city = await City.findByIdAndDelete(id);
         return res.json(city);
     } catch (e) {
-        res.status(500).json(e);
+        console.log(e)
+        //res.status(500).json(e);
     }
 });
 

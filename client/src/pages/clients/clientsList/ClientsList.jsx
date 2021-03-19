@@ -1,6 +1,6 @@
 import React from 'react';
 import './ClientsList.css';
-import Clients from "./Clients";
+import Clients from "../clients/Clients";
 
 const ClientsList = () => {
 
