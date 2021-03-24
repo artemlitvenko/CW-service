@@ -12,17 +12,24 @@ const PopupAdd = () => {
 
     const createHandler = useCallback(() => {
         dispatch(createCity( cityName ));
-        dispatch(setPopupAddDisplay('none'));
+        dispatch(setPopupAddDisplay(false));
     }, [cityName]);
 
+    console.log(popupDisplay)
+
+    if(!popupDisplay) {
+        return true;
+    }
+
+
     return (
-        <div className="popup popup-add" onClick={() => dispatch(setPopupAddDisplay('none'))} style={{display: popupDisplay}}>
+        <div className="popup popup-add" onClick={() => dispatch(setPopupAddDisplay(false))}>
             <div className="popup-content" onClick={(event => event.stopPropagation())}>
                 <div className="popup-header">
                     <div className="popup-title">
                         Add new city
                     </div>
-                    <button className="popup-close" onClick={() => dispatch(setPopupAddDisplay('none'))}>X</button>
+                    <button className="popup-close" onClick={() => dispatch(setPopupAddDisplay(false))}>X</button>
                 </div>
                 <Input type="text" placeholder="New city name" value={cityName} setValue={setCityName} />
                 <button className="popup-send" onClick={() => createHandler()}>add city</button>
