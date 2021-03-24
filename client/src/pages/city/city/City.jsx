@@ -13,7 +13,7 @@ const City = ({city, setCurrentId}) => {
     }, []);
 
     const showPopupEditHandler = useCallback(() => {
-        dispatch(setPopupEditDisplay('flex'))
+        dispatch(setPopupEditDisplay(true))
         setCurrentId(city._id)
     }, []);
 

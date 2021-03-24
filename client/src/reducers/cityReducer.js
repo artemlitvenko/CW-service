@@ -10,8 +10,8 @@ import {
 
 const defaultState = {
     cities: [],
-    popupAddDisplay: 'none',
-    popupEditDisplay: 'none'
+    popupAddDisplay: false,
+    popupEditDisplay: false
 };
 
 export default function cityReducer(state = defaultState, action) {

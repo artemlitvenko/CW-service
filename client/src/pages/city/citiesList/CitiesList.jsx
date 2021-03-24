@@ -15,7 +15,7 @@ const CitiesList = () => {
     }, []); // если массив зависимости пустой, то функция вызовется один раз после отрисовки компонента
 
     const showPopupDeleteHandler = useCallback(() => {
-        dispatch(setPopupAddDisplay('flex'))
+        dispatch(setPopupAddDisplay(true))
     }, []);
 
     return (
