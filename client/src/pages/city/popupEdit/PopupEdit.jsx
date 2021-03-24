@@ -21,7 +21,7 @@ const PopupEdit = ({ currentId, setCurrentId }) => {
     }, [currentId, editCityName]);
 
     if(!popupEditDisplay) {
-        return true;
+        return null;
     }
 
     return (

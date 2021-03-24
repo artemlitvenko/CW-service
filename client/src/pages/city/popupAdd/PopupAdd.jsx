@@ -15,10 +15,8 @@ const PopupAdd = () => {
         dispatch(setPopupAddDisplay(false));
     }, [cityName]);
 
-    console.log(popupDisplay)
-
     if(!popupDisplay) {
-        return true;
+        return null;
     }
 
 
