@@ -1,9 +1,12 @@
-const SET_CITY = "SET_CITY";
-const ADD_CITY = "ADD_CITY";
-const REMOVE_CITY = "REMOVE_CITY";
-const UPDATE_CITY = "UPDATE_CITY";
-const SET_POPUP_ADD_DISPLAY = "SET_POPUP_ADD_DISPLAY";
-const SET_POPUP_EDIT_DISPLAY = "SET_POPUP_EDIT_DISPLAY";
+import {
+    ADD_CITY,
+    REMOVE_CITY,
+    SET_CITY,
+    SET_POPUP_ADD_DISPLAY,
+    SET_POPUP_EDIT_DISPLAY,
+    UPDATE_CITY
+} from "../constarts/actionTypes";
+
 
 const defaultState = {
     cities: [],
@@ -31,7 +34,7 @@ export default function cityReducer(state = defaultState, action) {
         case REMOVE_CITY:
             return {
                 ...state,
-                cities: [...state.cities.filter(city => city._id != action.payload)]
+                cities: [...state.cities.filter(city => city._id !== action.payload)]
             }
         case SET_POPUP_ADD_DISPLAY:
             return {
@@ -47,27 +50,3 @@ export default function cityReducer(state = defaultState, action) {
             return state;
     }
 }
-
-// action creaters
-export const setCity = (citiesAction) => ({
-    type: SET_CITY, payload: citiesAction
-});
-
-export const addCity = (citiesAction) => ({
-    type: ADD_CITY, payload: citiesAction
-});
-
-export const updateCity = (citiesAction) => ({
-    type: UPDATE_CITY, payload: citiesAction
-});
-
-export const removeCity = (cityId) => ({
-    type: REMOVE_CITY, payload: cityId
-});
-
-export const setPopupAddDisplay = (display) => ({
-    type: SET_POPUP_ADD_DISPLAY, payload: display
-});
-export const setPopupEditDisplay = (display) => ({
-    type: SET_POPUP_EDIT_DISPLAY, payload: display
-});

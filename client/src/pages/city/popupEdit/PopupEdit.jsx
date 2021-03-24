@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import Input from "../../../components/input/Input";
 import './PopupEdit.css';
 import {useDispatch, useSelector} from "react-redux";
-import {setPopupEditDisplay} from "../../../reducers/cityReducer";
 import {updateCities} from "../../../actions/city";
+import {setPopupEditDisplay} from "../../../constarts/actionСreaters";
 
 const PopupEdit = ({ currentId, setCurrentId }) => {
     const dispatch = useDispatch();
@@ -13,10 +13,12 @@ const PopupEdit = ({ currentId, setCurrentId }) => {
 
     useEffect(() => {
         if(cityEdit) editSetCityName(cityEdit);
-    }, [cityEdit])
-    function updateHandler() {
-        dispatch(updateCities( currentId, editCityName ))
-    }
+    }, [cityEdit]);
+
+    const updateHandler = useCallback(() => {
+        dispatch(updateCities( currentId, editCityName ));
+        dispatch(setPopupEditDisplay('none'));
+    }, [currentId, editCityName]);
 
     return (
         <div className="popup popup-edit" onClick={() => dispatch(setPopupEditDisplay('none'))} style={{display: popupEditDisplay}}>

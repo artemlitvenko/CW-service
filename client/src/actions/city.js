@@ -1,8 +1,6 @@
 import axios from "axios";
 import {API_URL} from "../config";
-import {addCity, removeCity, setCity, updateCity} from "../reducers/cityReducer";
-
-
+import {addCity, removeCity, setCity, updateCity} from "../constarts/actionСreaters";
 
 export const getCity = () => {
     return async dispatch => {
@@ -47,10 +45,3 @@ export const deleteCity = (_id) => {
         }
     }
 }
-
-
-
-
-
-
-

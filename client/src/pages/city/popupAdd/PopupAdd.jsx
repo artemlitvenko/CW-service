@@ -1,18 +1,19 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import Input from "../../../components/input/Input";
 import './PopupAdd.css';
 import {useDispatch, useSelector} from "react-redux";
-import {setPopupAddDisplay} from "../../../reducers/cityReducer";
 import {createCity} from "../../../actions/city";
+import {setPopupAddDisplay} from "../../../constarts/actionСreaters";
 
 const PopupAdd = () => {
     const dispatch = useDispatch();
     const [cityName, setCityName] = useState();
     const popupDisplay = useSelector(state => state.cityReducer.popupAddDisplay);
 
-    function createHandler() {
-        dispatch(createCity( cityName ))
-    }
+    const createHandler = useCallback(() => {
+        dispatch(createCity( cityName ));
+        dispatch(setPopupAddDisplay('none'));
+    }, [cityName]);
 
     return (
         <div className="popup popup-add" onClick={() => dispatch(setPopupAddDisplay('none'))} style={{display: popupDisplay}}>

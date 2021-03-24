@@ -1,21 +1,22 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './City.css';
 import {useDispatch} from "react-redux";
-import {setPopupEditDisplay} from "../../../reducers/cityReducer";
 import {deleteCity} from "../../../actions/city";
+import {setPopupEditDisplay} from "../../../constarts/actionСreaters";
 
 const City = ({city, setCurrentId}) => {
     const dispatch = useDispatch();
-    //const city = city.city
 
-    function deleteClickHandler(e) {
+    const deleteClickHandler = useCallback((e) => {
         e.stopPropagation()
         dispatch(deleteCity( city._id ))
-    }
-    function showPopupEditHandler() {
+    }, []);
+
+    const showPopupEditHandler = useCallback(() => {
         dispatch(setPopupEditDisplay('flex'))
         setCurrentId(city._id)
-    }
+    }, []);
+
     return (
         <div className="list-item">
             <div className="list-content">

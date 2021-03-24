@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import './CitiesList.css';
 import Cities from "../cities/Cities";
 import {useDispatch, useSelector} from "react-redux";
 import {getCity} from "../../../actions/city";
 import PopupAdd from "../popupAdd/PopupAdd";
-import {setPopupAddDisplay} from "../../../reducers/cityReducer";
 import PopupEdit from "../popupEdit/PopupEdit";
+import {setPopupAddDisplay} from "../../../constarts/actionСreaters";
 
 const CitiesList = () => {
     const [currentId, setCurrentId] = useState(null);
@@ -14,9 +14,9 @@ const CitiesList = () => {
         dispatch(getCity())
     }, []); // если массив зависимости пустой, то функция вызовется один раз после отрисовки компонента
 
-    function showPopupDeleteHandler() {
+    const showPopupDeleteHandler = useCallback(() => {
         dispatch(setPopupAddDisplay('flex'))
-    }
+    }, []);
 
     return (
         <div className="cities-list">
