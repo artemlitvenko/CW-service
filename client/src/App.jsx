@@ -1,11 +1,11 @@
 import React, {useEffect} from "react";
 import './App.css';
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
-import OrderForm from "./pages/orders/OrderForm";
-import CitiesList from "./pages/cities/CitiesList";
-import MastersList from "./pages/masters/MastersList";
-import ClientsList from "./pages/clients/ClientsList";
-import OrdersList from "./pages/orders/OrdersList";
+import OrderForm from "./pages/orders/orderForm/OrderForm";
+import CitiesList from "./pages/city/citiesList/CitiesList";
+import MastersList from "./pages/masters/mastersList/MastersList";
+import ClientsList from "./pages/clients/clientsList/ClientsList";
+import OrdersList from "./pages/orders/ordersList/OrdersList";
 import Footer from "./components/footer/Footer";
 import Header from "./components/header/Header";
 import Registration from "./pages/registration/Registration";

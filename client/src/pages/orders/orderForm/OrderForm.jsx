@@ -15,11 +15,22 @@ const OrderForm = () => {
             <div className="subtitle-form">
                 Select watch size
             </div>
-            <form>
-                <label className="radio" ><input type="radio" value="small" /> small</label>
-                <label className="radio" ><input type="radio" value="medium" /> medium</label>
-                <label className="radio" ><input type="radio" value="large" /> large</label>
-            </form>
+            <div className="watch-size">
+                <form>
+                    <div className="form-radio">
+                        <input type="radio" name="size" value="small" />
+                        <label className="radio" >small</label>
+                    </div>
+                    <div className="form-radio">
+                        <input type="radio" name="size" value="medium" />
+                        <label className="radio" >medium</label>
+                    </div>
+                    <div className="form-radio">
+                        <input type="radio" name="size" value="large" />
+                        <label className="radio" >large</label>
+                    </div>
+                </form>
+            </div>
             <div className="subtitle-form">
                 Select your city
             </div>
@@ -41,6 +52,8 @@ const OrderForm = () => {
                     timeIntervals={60}
                     timeCaption="time"
                     dateFormat="MMMM d, yyyy h:mm aa"
+                    minDate={new Date()}
+                    disablePast
                 />
             </div>
             <button type="submit">Find master</button>

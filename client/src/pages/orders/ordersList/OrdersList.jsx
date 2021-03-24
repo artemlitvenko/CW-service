@@ -1,6 +1,6 @@
 import React from 'react';
 import './OrdersList.css';
-import Orders from "./Orders";
+import Orders from "../orders/Orders";
 
 const OrdersList = () => {
     return (

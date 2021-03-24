@@ -29,8 +29,15 @@
     border-radius: 3px;
     border: 1px solid #D4DEE8;
 }
-.radio {
-    margin-right: 35px;
+
+.form-radio {
+    display: flex;
+}
+.form-radio label {
+    padding: 9px 0;
+}
+.form-radio input {
+    width: 15px;
 }
 .city select {
     width: 100%;
@@ -40,7 +47,6 @@
 }
 .react-datepicker__input-container input {
     width: 476px;
-    padding: 10px 12px;
     margin-bottom: 10px;
     border-radius: 3px;
     border: 1px solid #D4DEE8;
