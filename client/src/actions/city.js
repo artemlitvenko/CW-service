@@ -40,7 +40,7 @@ export const updateCities = (_id, city_name) => {
 export const deleteCity = (_id) => {
     return async dispatch => {
         try {
-            const response = await axios.delete(`${API_URL}api/city/${_id}`);
+            await axios.delete(`${API_URL}api/city/${_id}`);
             dispatch(removeCity(_id));
         } catch (e) {
             console.log(e.message)

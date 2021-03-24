@@ -16,6 +16,7 @@ const PopupEdit = ({ currentId, setCurrentId }) => {
     }, [cityEdit])
     function updateHandler() {
         dispatch(updateCities( currentId, editCityName ))
+        dispatch(setPopupEditDisplay('none'))
     }
 
     return (

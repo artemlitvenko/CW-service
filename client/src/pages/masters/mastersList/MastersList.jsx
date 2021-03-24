@@ -1,35 +1,33 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './MastersList.css';
 import Masters from "../masters/Masters";
+import PopupAdd from "../../masters/popupAdd/PopupAdd";
+import PopupEdit from "../../masters/popupEdit/PopupEdit";
+import {useDispatch} from "react-redux";
+import {getMaster} from "../../../actions/master";
+import {setPopupAddDisplayMaster} from "../../../reducers/masterReducer";
 
 
 const MastersList = () => {
+    const [currentMasterId, setCurrentMasterId] = useState(null);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getMaster())
+    }, [currentMasterId, dispatch]); // если массив зависимости пустой, то функция вызовется один раз после отрисовки компонента
+
+    function showPopupDeleteHandler() {
+        dispatch(setPopupAddDisplayMaster('flex'))
+    }
 
     return (
-        <div>
-            <h1>MasterList</h1>
-            <Masters />
-            <Masters />
-            <Masters />
-            <h3>Add new master</h3>
-            <div className="list-form">
-                <input
-                    placeholder="Name"
-                />
-                <select>
-                    <option>Dnipro</option>
-                    <option>Uzhhorod</option>
-                </select>
-                <select>
-                    <option disabled>Rating</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
-                <button>add master</button>
+        <div className="item-list">
+            <div className="item-list-title">
+                <h1>MasterList</h1>
+                <button className="add" onClick={() => showPopupDeleteHandler()}>add master</button>
             </div>
+            <Masters setCurrentMasterId={setCurrentMasterId} />
+            <PopupAdd />
+            <PopupEdit currentId={currentMasterId} setCurrentId={setCurrentMasterId} />
         </div>
     );
 }

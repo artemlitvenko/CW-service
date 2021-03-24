@@ -9,8 +9,9 @@ const clientRouter = require("./routes/client.routes.js");
 const app = express();
 const PORT = process.env.PORT || config.get('serverPort');
 const corsMiddleware = require('./middleware/cors.middleware');
+const cors = require("cors")
 
-
+app.use(cors());
 app.use(corsMiddleware);
 app.use(express.json());
 app.use("/api/auth", authRouter); // регистрация роутеров

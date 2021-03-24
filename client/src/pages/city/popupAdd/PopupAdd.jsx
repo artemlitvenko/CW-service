@@ -12,6 +12,7 @@ const PopupAdd = () => {
 
     function createHandler() {
         dispatch(createCity( cityName ))
+        dispatch(setPopupAddDisplay('none'))
     }
 
     return (

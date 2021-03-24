@@ -22,7 +22,7 @@ router.get("", async (req, res) => {
     }
 });
 
-router.put("", async (req, res) => {
+router.put("/:id", async (req, res) => {
     try {
         const master = req.body;
         if(!master._id) {
@@ -36,7 +36,8 @@ router.put("", async (req, res) => {
     }
 });
 
-router.delete(":id", async (req, res) => {
+
+router.delete("/:id", async (req, res) => {
     try {
         const {id} = req.params;
         if(!id) {

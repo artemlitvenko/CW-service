@@ -7,6 +7,9 @@ h1 {
 h3 {
   margin-top: 40px;
 }
+h4 {
+  margin: 0 0 10px;
+}
 .list-form {
   background: #F7f7f7;
   margin-top: 25px;
@@ -108,6 +111,10 @@ select {
 .popup-send {
   margin-top: 15px;
 }
+.popup select {
+  width: 100%;
+  margin-bottom: 20px;
+}
 .list-title-form {
   display: flex;
 }
@@ -116,4 +123,18 @@ select {
 }
 .list-title-form input {
   height: 40px;
+}
+.item-list-title {
+  display: flex;
+  justify-content: space-between;
+}
+.item-list-title button {
+  width: 130px;
+  min-height: 40px;
+}
+.list-content {
+  display: flex;
+}
+.list-content-item {
+  width: 280px;
 }

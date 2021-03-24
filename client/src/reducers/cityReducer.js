@@ -31,7 +31,7 @@ export default function cityReducer(state = defaultState, action) {
         case REMOVE_CITY:
             return {
                 ...state,
-                cities: [...state.cities.filter(city => city._id != action.payload)]
+                cities: [...state.cities.filter(city => city._id !== action.payload)]
             }
         case SET_POPUP_ADD_DISPLAY:
             return {
