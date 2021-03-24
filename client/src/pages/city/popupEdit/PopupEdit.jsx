@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import Input from "../../../components/input/Input";
 import './PopupEdit.css';
 import {useDispatch, useSelector} from "react-redux";
-import {setPopupEditDisplay} from "../../../reducers/cityReducer";
 import {updateCities} from "../../../actions/city";
+import {setPopupEditDisplay} from "../../../constarts/actionСreaters";
 
 const PopupEdit = ({ currentId, setCurrentId }) => {
     const dispatch = useDispatch();
@@ -13,20 +13,25 @@ const PopupEdit = ({ currentId, setCurrentId }) => {
 
     useEffect(() => {
         if(cityEdit) editSetCityName(cityEdit);
-    }, [cityEdit])
-    function updateHandler() {
-        dispatch(updateCities( currentId, editCityName ))
-        dispatch(setPopupEditDisplay('none'))
+    }, [cityEdit]);
+
+    const updateHandler = useCallback(() => {
+        dispatch(updateCities( currentId, editCityName ));
+        dispatch(setPopupEditDisplay(false));
+    }, [currentId, editCityName]);
+
+    if(!popupEditDisplay) {
+        return null;
     }
 
     return (
-        <div className="popup popup-edit" onClick={() => dispatch(setPopupEditDisplay('none'))} style={{display: popupEditDisplay}}>
+        <div className="popup popup-edit" onClick={() => dispatch(setPopupEditDisplay(false))}>
             <div className="popup-content" onClick={(event => event.stopPropagation())}>
                 <div className="popup-header">
                     <div className="popup-title">
                         Edit city
                     </div>
-                    <button className="popup-close" onClick={() => dispatch(setPopupEditDisplay('none'))}>X</button>
+                    <button className="popup-close" onClick={() => dispatch(setPopupEditDisplay(false))}>X</button>
                 </div>
                 <Input type="text" name="city_name" placeholder="City name" value={editCityName.city_name} setValue={editSetCityName} />
                 <button className="popup-send" onClick={() => updateHandler()}>edit city</button>
