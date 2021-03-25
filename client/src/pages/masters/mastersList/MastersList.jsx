@@ -5,7 +5,7 @@ import PopupAdd from "../../masters/popupAdd/PopupAdd";
 import PopupEdit from "../../masters/popupEdit/PopupEdit";
 import {useDispatch} from "react-redux";
 import {getMaster} from "../../../actions/master";
-import {setPopupAddDisplayMaster} from "../../../reducers/masterReducer";
+import {setPopupAddDisplayMaster} from "../../../constarts/actionMasterСreaters";
 
 
 const MastersList = () => {
@@ -13,10 +13,10 @@ const MastersList = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getMaster())
-    }, [currentMasterId, dispatch]); // если массив зависимости пустой, то функция вызовется один раз после отрисовки компонента
+    }, []); // если массив зависимости пустой, то функция вызовется один раз после отрисовки компонента
 
     function showPopupDeleteHandler() {
-        dispatch(setPopupAddDisplayMaster('flex'))
+        dispatch(setPopupAddDisplayMaster(true))
     }
 
     return (

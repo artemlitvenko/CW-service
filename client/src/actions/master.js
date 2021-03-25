@@ -1,7 +1,6 @@
 import axios from "axios";
 import {API_URL} from "../config";
-import {addMaster, removeMaster, setMaster} from "../reducers/masterReducer";
-
+import {addMaster, removeMaster, setMaster} from "../constarts/actionMasterСreaters";
 
 
 export const getMaster = () => {
@@ -16,7 +15,6 @@ export const getMaster = () => {
 }
 
 export const createMaster = (name, rating) => {
-    debugger
     return async dispatch => {
         try {
             const response = await axios.post(`${API_URL}api/master`, {name, rating});
@@ -48,11 +46,3 @@ export const deleteMaster = (_id) => {
         }
     }
 }
-
-
-
-
-
-
-
-

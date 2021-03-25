@@ -1,6 +1,6 @@
 import axios from "axios";
 import {API_URL} from "../config";
-import {addCity, removeCity, setCity, updateCity} from "../constarts/actionСreaters";
+import {addCity, removeCity, setCity, updateCity} from "../constarts/actionCityСreaters";
 
 export const getCity = () => {
     return async dispatch => {

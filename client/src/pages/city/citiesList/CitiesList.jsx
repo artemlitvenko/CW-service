@@ -5,7 +5,7 @@ import {useDispatch} from "react-redux";
 import {getCity} from "../../../actions/city";
 import PopupAdd from "../popupAdd/PopupAdd";
 import PopupEdit from "../popupEdit/PopupEdit";
-import {setPopupAddDisplay} from "../../../constarts/actionСreaters";
+import {setPopupAddDisplay} from "../../../constarts/actionCityСreaters";
 
 const CitiesList = () => {
     const [currentId, setCurrentId] = useState(null);

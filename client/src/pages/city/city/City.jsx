@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import './City.css';
 import {useDispatch} from "react-redux";
 import {deleteCity} from "../../../actions/city";
-import {setPopupEditDisplay} from "../../../constarts/actionСreaters";
+import {setPopupEditDisplay} from "../../../constarts/actionCityСreaters";
 
 const City = ({city, setCurrentId}) => {
     const dispatch = useDispatch();

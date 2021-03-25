@@ -1,20 +1,22 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './Master.css';
 import {useDispatch} from "react-redux";
 import {deleteMaster} from "../../../actions/master";
-import {setPopupEditDisplayMaster} from "../../../reducers/masterReducer";
+import {setPopupEditDisplayMaster} from "../../../constarts/actionMasterСreaters";
 
 const Master = ({master, setCurrentMasterId}) => {
     const dispatch = useDispatch();
 
-    function deleteClickHandler(e) {
+    const deleteClickHandler = useCallback((e) => {
         e.stopPropagation()
         dispatch(deleteMaster( master._id ))
-    }
-    function showPopupEditHandler() {
-        dispatch(setPopupEditDisplayMaster('flex'))
+    }, []);
+
+    const showPopupEditHandler = useCallback(() => {
+        dispatch(setPopupEditDisplayMaster(true))
         setCurrentMasterId(master._id)
-    }
+    }, []);
+
     return (
         <div className="list-item">
             <div className="list-content">

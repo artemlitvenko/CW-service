@@ -5,7 +5,6 @@ import City from "../city/City";
 
 const Cities = ({ setCurrentId }) => {
     const citiesList = useSelector(state => state.cityReducer.cities ).map(city => <City city={city} setCurrentId={setCurrentId} />);
-
     return (
         <div>
             { citiesList }

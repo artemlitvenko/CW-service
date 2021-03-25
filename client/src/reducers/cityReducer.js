@@ -5,7 +5,7 @@ import {
     SET_POPUP_ADD_DISPLAY,
     SET_POPUP_EDIT_DISPLAY,
     UPDATE_CITY
-} from "../constarts/actionTypes";
+} from "../constarts/actionCityTypes";
 
 
 const defaultState = {

@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 
 const Masters = ({ setCurrentMasterId }) => {
     const mastersList = useSelector(state => state.masterReducer.masters ).map(master => <Master master={master} setCurrentMasterId={setCurrentMasterId} />);
+    debugger
     return (
         <div>
             { mastersList }

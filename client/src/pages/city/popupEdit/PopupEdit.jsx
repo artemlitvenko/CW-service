@@ -3,7 +3,7 @@ import Input from "../../../components/input/Input";
 import './PopupEdit.css';
 import {useDispatch, useSelector} from "react-redux";
 import {updateCities} from "../../../actions/city";
-import {setPopupEditDisplay} from "../../../constarts/actionСreaters";
+import {setPopupEditDisplay} from "../../../constarts/actionCityСreaters";
 
 const PopupEdit = ({ currentId, setCurrentId }) => {
     const dispatch = useDispatch();
