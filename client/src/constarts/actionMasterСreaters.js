@@ -15,7 +15,7 @@ export const addMaster = (masterAction) => ({
     type: ADD_MASTER, payload: masterAction
 });
 
-export const updateMaster = (masterAction) => ({
+export const updateMasters = (masterAction) => ({
     type: UPDATE_MASTER, payload: masterAction
 });
 

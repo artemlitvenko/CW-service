@@ -1,6 +1,6 @@
 import axios from "axios";
 import {API_URL} from "../config";
-import {addMaster, removeMaster, setMaster} from "../constarts/actionMasterСreaters";
+import {addMaster, removeMaster, setMaster, updateMasters} from "../constarts/actionMasterСreaters";
 
 
 export const getMaster = () => {
@@ -29,7 +29,7 @@ export const updateMaster = (_id, name, rating, city) => {
     return async dispatch => {
         try {
             const response = await axios.put(`${API_URL}api/master/${_id}`, {_id, name, rating, city});
-            dispatch(updateMaster(response.data));
+            dispatch(updateMasters(response.data));
         } catch (e) {
             console.log('Update master is crash', e.message)
         }
