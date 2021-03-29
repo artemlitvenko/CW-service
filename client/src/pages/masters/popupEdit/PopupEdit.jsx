@@ -28,7 +28,7 @@ const PopupEdit = ({currentId, setCurrentId}) => {
     const updateHandler = useCallback(() => {
         dispatch(updateMaster(currentId, editMasterName, editMasterRating, editMasterCity));
         dispatch(setPopupEditDisplayMaster(false));
-    }, [dispatch]);
+    }, [dispatch, currentId, editMasterName, editMasterRating, editMasterCity]);
 
     if (!popupEditDisplay) {
         return null;

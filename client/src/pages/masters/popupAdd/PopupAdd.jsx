@@ -22,7 +22,7 @@ const PopupAdd = () => {
     const createHandler = useCallback(() => {
         dispatch(createMaster( masterName, masterRating, { _id: masterCity } ))
         dispatch(setPopupAddDisplayMaster(false))
-    }, [dispatch]);
+    }, [dispatch, masterName, masterRating, { _id: masterCity }]);
 
     if(!popupDisplay) {
         return null;

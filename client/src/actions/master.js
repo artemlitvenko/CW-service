@@ -27,7 +27,6 @@ export const createMaster = (name, rating, city) => {
 
 export const updateMaster = (_id, name, rating, city) => {
     return async dispatch => {
-        debugger
         try {
             const response = await axios.put(`${API_URL}api/master/${_id}`, {_id, name, rating, city});
             dispatch(updateMaster(response.data));
