@@ -20,7 +20,7 @@ export default function cityReducer(state = defaultState, action) {
             return {
                 ...state, // перезаписываем все поля в текущем state
                 cities: action.payload // перезаписываем city данными которые лежат в объекте action, в поле payload
-            }
+            };
         case ADD_CITY:
             return {
                 ...state,

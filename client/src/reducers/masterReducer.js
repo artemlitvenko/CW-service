@@ -16,10 +16,9 @@ const defaultState = {
 export default function cityReducer(state = defaultState, action) {
     switch (action.type) {
         case SET_MASTER:
-            console.log(action.payload)
             return {
                 ...state,
-                masters: [...state.masters, action.payload]
+                masters: action.payload
             }
         case ADD_MASTER:
             return {

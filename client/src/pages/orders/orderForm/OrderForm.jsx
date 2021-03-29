@@ -2,9 +2,11 @@ import React, {useState} from 'react';
 import './OrderForm.css';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import {setMinutes, setHours} from "date-fns";
 
 const OrderForm = () => {
-    const [startDate, setStartDate] = useState(new Date());
+    const [startDate, setStartDate] = useState(setHours(setMinutes(new Date(), 30), 17));
+    const today = new Date().getDate();
     return (
         <div className="order-form">
             <div className="title">
@@ -16,20 +18,11 @@ const OrderForm = () => {
                 Select watch size
             </div>
             <div className="watch-size">
-                <form>
-                    <div className="form-radio">
-                        <input type="radio" name="size" value="small" />
-                        <label className="radio" >small</label>
-                    </div>
-                    <div className="form-radio">
-                        <input type="radio" name="size" value="medium" />
-                        <label className="radio" >medium</label>
-                    </div>
-                    <div className="form-radio">
-                        <input type="radio" name="size" value="large" />
-                        <label className="radio" >large</label>
-                    </div>
-                </form>
+                <select>
+                    <option>small</option>
+                    <option>medium</option>
+                    <option>large</option>
+                </select>
             </div>
             <div className="subtitle-form">
                 Select your city
@@ -51,8 +44,10 @@ const OrderForm = () => {
                     timeFormat="HH:mm"
                     timeIntervals={60}
                     timeCaption="time"
-                    dateFormat="MMMM d, yyyy h:mm aa"
+                    dateFormat="MMMM d, yyyy h aa"
                     minDate={new Date()}
+                    minTime={setHours(new Date(), (new Date().getDate() !== today) ? new Date().getHours() : 9)}
+                    maxTime={setHours(setMinutes(new Date(), 0), 18)}
                     disablePast
                 />
             </div>

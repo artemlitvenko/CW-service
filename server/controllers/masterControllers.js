@@ -2,9 +2,10 @@ const Master = require('../models/Master');
 
 class MasterController {
     postMaster = async (req, res) => {
+        debugger
         try {
-            const {name, rating} = req.body;
-            const master = await Master.create({name, rating});
+            const {name, rating, city} = req.body;
+            const master = await Master.create({name, rating, city});
             res.json(master);
         } catch (e) {
             console.log(e)
@@ -14,7 +15,6 @@ class MasterController {
     getMaster = async (req, res) => {
         try {
             const master = await Master.find().populate({ path: 'city', select: 'city_name' });
-            console.log(master)
             return res.json(master);
         } catch (e) {
             res.status(500).json(e);
@@ -29,6 +29,7 @@ class MasterController {
                 res.status(400).json({ message: 'ID не указан' });
             }
             const updatedMaster = await Master.findByIdAndUpdate(id, master, {new: true});
+            console.log(updatedMaster);
             return res.json(updatedMaster);
 
         } catch (e) {

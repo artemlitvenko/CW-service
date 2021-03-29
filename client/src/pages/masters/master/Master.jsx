@@ -16,12 +16,11 @@ const Master = ({master, setCurrentMasterId}) => {
         dispatch(setPopupEditDisplayMaster(true))
         setCurrentMasterId(master._id)
     }, []);
-
     return (
         <div className="list-item">
             <div className="list-content">
                 <div className="list-content-item">{master.name}</div>
-                <div className="list-content-item">{master.city}</div>
+                <div className="list-content-item">{master.city.city_name}</div>
                 <div className="list-content-item">Rating: {master.rating}</div>
             </div>
             <div className="btn-item">
