@@ -1,7 +1,6 @@
 const Router = require('express');
 const router = new Router();
-const cityController  = require('../controllers/cityControllers');
-
+const cityController = require('../controllers/cityControllers');
 
 router.post('', cityController.postCity);
 router.get('', cityController.getCity);

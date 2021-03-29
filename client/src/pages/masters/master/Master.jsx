@@ -1,25 +1,28 @@
 import React, { useCallback } from 'react';
-import './City.css';
+import './Master.css';
 import { useDispatch } from 'react-redux';
-import { deleteCity } from '../../../actions/city';
-import { setPopupEditDisplay } from '../../../constarts/actionCityСreaters';
+import { deleteMaster } from '../../../actions/master';
+import { setPopupEditDisplayMaster } from '../../../constarts/actionMasterСreaters';
 
-const City = ({ city, setCurrentId }) => {
+const Master = ({ master, setCurrentMasterId }) => {
     const dispatch = useDispatch();
 
     const deleteClickHandler = useCallback((e) => {
         e.stopPropagation();
-        dispatch(deleteCity(city._id));
+        dispatch(deleteMaster(master._id));
     }, []);
 
     const showPopupEditHandler = useCallback(() => {
-        dispatch(setPopupEditDisplay(true));
-        setCurrentId(city._id);
+        dispatch(setPopupEditDisplayMaster(true));
+        setCurrentMasterId(master._id);
     }, []);
-
     return (
         <div className="list-item">
-            <div className="list-content">{city.city_name}</div>
+            <div className="list-content">
+                <div className="list-content-item">{master.name}</div>
+                <div className="list-content-item">{master.city.city_name}</div>
+                <div className="list-content-item">Rating: {master.rating}</div>
+            </div>
             <div className="btn-item">
                 <button className="edit-btn" onClick={showPopupEditHandler}>
                     Edit
@@ -32,4 +35,4 @@ const City = ({ city, setCurrentId }) => {
     );
 };
 
-export default City;
+export default Master;
