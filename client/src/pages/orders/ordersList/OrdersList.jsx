@@ -1,6 +1,6 @@
 import React from 'react';
 import './OrdersList.css';
-import Orders from "../orders/Orders";
+import Orders from '../orders/Orders';
 
 const OrdersList = () => {
     return (
@@ -10,6 +10,6 @@ const OrdersList = () => {
             <Orders />
         </div>
     );
-}
+};
 
 export default OrdersList;

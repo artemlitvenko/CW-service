@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './Registration.css';
-import Input from "../../components/input/Input";
-import {registration} from "../../actions/user";
+import Input from '../../components/input/Input';
+import { registration } from '../../actions/user';
 
 const Registration = (props) => {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     return (
         <div className="auth-form">
             <div className="title">
@@ -13,7 +13,9 @@ const Registration = (props) => {
             </div>
             <Input value={email} setValue={setEmail} type="text" placeholder="Your email" />
             <Input value={password} setValue={setPassword} type="password" placeholder="Your password" />
-            <button type="submit" onClick={ () => registration(email, password) }>Sign Up</button>
+            <button type="submit" onClick={() => registration(email, password)}>
+                Sign Up
+            </button>
         </div>
     );
 };
