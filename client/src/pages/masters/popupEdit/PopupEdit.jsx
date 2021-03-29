@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import Input from "../../../components/input/Input";
 import './PopupEdit.css';
 import {useDispatch, useSelector} from "react-redux";
@@ -25,10 +25,10 @@ const PopupEdit = ({currentId, setCurrentId}) => {
         if (masterEdit) editSetMasterName(masterEdit);
     }, [masterEdit])
 
-    const updateHandler = () => {
+    const updateHandler = useCallback(() => {
         dispatch(updateMaster(currentId, editMasterName, editMasterRating, editMasterCity));
         dispatch(setPopupEditDisplayMaster(false));
-    };
+    }, [dispatch]);
 
     if (!popupEditDisplay) {
         return null;

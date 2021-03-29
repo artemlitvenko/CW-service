@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import './MastersList.css';
 import Masters from "../masters/Masters";
 import PopupAdd from "../../masters/popupAdd/PopupAdd";
@@ -15,9 +15,9 @@ const MastersList = () => {
         dispatch(getMaster())
     }, []); // если массив зависимости пустой, то функция вызовется один раз после отрисовки компонента
 
-    function showPopupDeleteHandler() {
+    const showPopupDeleteHandler = useCallback(() => {
         dispatch(setPopupAddDisplayMaster(true))
-    }
+    }, []);
 
     return (
         <div className="item-list">
