@@ -1,0 +1,17 @@
+.list-result button {
+    width: 100px;
+    color: #fff;
+    font-size: 16px;
+    background: #0F9D58;
+    border-radius: 3px;
+    border: none;
+    margin: 2px 0;
+    min-height: 40px;
+    cursor: pointer;
+}
+.list-result button:hover {
+    background: #0F8B58;
+}
+.list-result-item {
+    width: 130px;
+}

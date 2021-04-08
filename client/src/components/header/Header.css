@@ -1,7 +1,10 @@
 .header {
-    margin-bottom: 100px;
     background: #343A40;
     padding: 10px 0;
+    height: 70px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
 }
 .header a {
     color: #fff;
