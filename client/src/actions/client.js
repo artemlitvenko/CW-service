@@ -11,10 +11,10 @@ export const getClient = () => {
     };
 };
 
-export const updateClient = () => {
+export const updateClient = (_id) => {
     return async (dispatch) => {
         try {
-            const response = await axios.put(`${API_URL}api/client/${_id}`, {});
+            const response = await axios.put(`${API_URL}api/client/${_id}`, { _id });
             dispatch(updateClients(response.data));
         } catch (e) {
             console.log('Update Client is crash', e.message);
