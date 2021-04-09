@@ -19,7 +19,7 @@ class OrderController {
             });
 
             let mastersResultList = [];
-            let clientDay = startDate.slice(0, 10);
+            let clientDay = moment(startDate).format('YYYY MM DD');
 
             for (let i = 0; i < masters.length; i++) {
                 let orders = masters[i].order;
@@ -30,8 +30,7 @@ class OrderController {
                     let ordersEndTime = orders[ii].end_time;
                     let clientStartTime = new Date(startDate);
 
-                    let ordersStartTimeShort = ordersStartTime.toISOString().slice(0, 10);
-                    let ordersIdMaster = orders[ii].master;
+                    let ordersStartTimeShort = moment(ordersStartTime).format('YYYY MM DD');
 
                     let oldOrder = [moment(+ordersStartTime), moment(+ordersEndTime)];
                     let newOrder = [moment(+clientStartTime), moment(+endDate)];
