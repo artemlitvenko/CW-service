@@ -17,6 +17,7 @@ export const getMastersForOrder = (orderCity, startDate, endDate) => {
     };
 };
 export const createOrder = (client_name, client_email, master, city, size, start_time, end_time) => {
+    debugger;
     return async (dispatch) => {
         try {
             const response = await axios.post(`${API_URL}api/order`, { client_name, client_email, master, city, size, start_time, end_time });

@@ -31,6 +31,11 @@ const OrderForm = () => {
     }));
     const citySelect = orderObj.map((city) => <option value={city._id}>{city.city_name}</option>);
 
+    const oneHourInMs = 60 * 60 * 1000;
+    const smallClockSize = oneHourInMs;
+    const mediumClockSize = oneHourInMs * 2;
+    const largeClockSize = oneHourInMs * 3;
+
     let startDate = orderDate;
     let endDate = +startDate + Number(orderSize);
 
@@ -60,9 +65,9 @@ const OrderForm = () => {
             <div className="watch-size">
                 <select name="size" value={orderSize} onChange={(event) => setOrderSize(event.target.value)}>
                     <option value="default">Choose size of watch</option>
-                    <option value="3600000">small</option>
-                    <option value="7200000">medium</option>
-                    <option value="10800000">large</option>
+                    <option value={smallClockSize}>small</option>
+                    <option value={mediumClockSize}>medium</option>
+                    <option value={largeClockSize}>large</option>
                 </select>
             </div>
             <div className="subtitle-form">Select your city</div>
