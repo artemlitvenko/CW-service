@@ -1,30 +1,6 @@
 const Client = require('../models/Client');
 
 class ClientController {
-    /*postClient = async (req, res) => {
-        try {
-            const { name, email, order } = req.body;
-            let client = await Client.findOne({ email: email }).exec();
-            if (!client) {
-                client = await Client.create({ name, email, order });
-            }
-            res.json(client);
-        } catch (e) {
-            console.log(e);
-        }
-    };*/
-
-    /*getOneClient = async (req, res) => {
-        try {
-            let email = req.query.clientEmail;
-            const client = await Client.findOne({ email: email }).exec();
-            console.log(client._id);
-            return res.json(client._id);
-        } catch (e) {
-            res.status(500).json(e);
-        }
-    };*/
-
     getClients = async (req, res) => {
         try {
             const client = await Client.find();

@@ -4,6 +4,7 @@ const Client = require('../models/Client');
 const Moment = require('moment');
 const MomentRange = require('moment-range');
 const moment = MomentRange.extendMoment(Moment);
+const mailer = require('../service/nodemailer');
 
 class OrderController {
     getMasterForOrder = async (req, res) => {
@@ -61,22 +62,25 @@ class OrderController {
     postOrder = async (req, res) => {
         try {
             const { client_name, client_email, master, city, size, start_time, end_time } = req.body;
-            console.log('req.body', req.body);
             let clientCreate = await Client.findOne({ client_email: client_email }).exec();
             if (!clientCreate) {
                 clientCreate = await Client.create({ client_name, client_email });
             }
             let client = clientCreate._id;
-            console.log('client', client);
 
             const order = await Order.create({ master, client, city, size, start_time, end_time });
             res.json(order);
+
             let orderId = order._id;
-            console.log('orderId', orderId);
-
             let addOrderId = { client_order: orderId };
-
             await Client.findByIdAndUpdate(client, addOrderId, { new: true });
+
+            const message = {
+                to: req.body.client_email,
+                subject: 'Thank you! Your order has been successfully received!',
+                text: `We will contact you shortly at the email address (${req.body.client_email}) you provided to clarify your order.`,
+            };
+            mailer(message);
         } catch (e) {
             console.log(e);
         }
@@ -99,7 +103,6 @@ class OrderController {
                 res.status(400).json({ message: 'ID не указан' });
             }
             const updatedOrder = await Order.findByIdAndUpdate(id, order, { new: true });
-            console.log(updatedOrder);
             return res.json(updatedOrder);
         } catch (e) {
             res.status(500).json(e);

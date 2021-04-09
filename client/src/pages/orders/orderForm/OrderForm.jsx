@@ -10,7 +10,6 @@ import OrderMaster from '../orderMaster/OrderMaster';
 
 const OrderForm = () => {
     const dispatch = useDispatch();
-    const [currentMasterId, setCurrentMasterId] = useState(null);
     useEffect(() => {
         dispatch(getCity());
     }, []);
@@ -39,12 +38,15 @@ const OrderForm = () => {
         dispatch(getMastersForOrder(orderCity, startDate, endDate));
     }, [dispatch, orderCity, startDate, endDate]);
 
-    const createOrderHandler = useCallback(() => {
-        dispatch(createOrder(clientName, clientEmail, currentMasterId, orderCity, Number(orderSize), startDate, endDate));
-    }, [dispatch, clientName, clientEmail, currentMasterId, orderCity, Number(orderSize), startDate, endDate]);
+    const createOrderHandler = useCallback(
+        (currentMasterId) => {
+            dispatch(createOrder(clientName, clientEmail, currentMasterId, orderCity, Number(orderSize), startDate, endDate));
+        },
+        [dispatch, clientName, clientEmail, orderCity, Number(orderSize), startDate, endDate],
+    );
 
     const mastersResultList = useSelector((state) => state.orderReducer.masters).map((master) => (
-        <OrderMaster setCurrentMasterId={setCurrentMasterId} createOrderHandler={createOrderHandler} master={master} currentId={currentMasterId} />
+        <OrderMaster createOrderHandler={createOrderHandler} master={master} />
     ));
 
     return (
