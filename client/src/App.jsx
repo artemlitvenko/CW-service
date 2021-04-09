@@ -25,7 +25,7 @@ const App = () => {
         <BrowserRouter>
             <div className="App">
                 <Header />
-                <div className="container">
+                <div className="container main">
                     {!isAuth && (
                         <Switch>
                             <Route exact path="/" render={() => <OrderForm />} />
