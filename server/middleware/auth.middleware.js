@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const config = require('config');
+const config = require('../config');
 
 // получаем по токену пользователя и возвращаем обратно
 module.exports = (req, res, next) => {
@@ -12,7 +12,7 @@ module.exports = (req, res, next) => {
         if (!token) {
             return res.status(401).json({ message: 'Auth error' });
         }
-        const decoded = jwt.verify(token, config.get('secretKey'));
+        const decoded = jwt.verify(token, config.SECRET_KEY);
         req.user = decoded;
         next();
     } catch (e) {

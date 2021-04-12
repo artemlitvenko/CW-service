@@ -57,7 +57,7 @@ const PopupEdit = ({ currentId, setCurrentId }) => {
                     <option value="5">5</option>
                 </select>
                 <h4>Change city of master</h4>
-                <select name="city" value={editMasterCity} onChange={(event) => editSetMasterCity(event.target.value)}>
+                <select name="city" value={editMasterCity.city} onChange={(event) => editSetMasterCity(event.target.value)}>
                     <option>Choose city of master</option>
                     {citySelect}
                 </select>

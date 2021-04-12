@@ -5,12 +5,14 @@ import userReducer from './userReducer';
 import cityReducer from './cityReducer';
 import masterReducer from './masterReducer';
 import orderFormReducer from './orderFormReducer';
+import orderReducer from './orderReducer';
 
 const rootReduser = combineReducers({
     user: userReducer,
     cityReducer: cityReducer,
     masterReducer: masterReducer,
-    orderReducer: orderFormReducer,
+    orderFormReducer: orderFormReducer,
+    orderReducer: orderReducer,
 });
 
 export const store = createStore(rootReduser, composeWithDevTools(applyMiddleware(thunk)));
