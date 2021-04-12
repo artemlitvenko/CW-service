@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import './Order.css';
 import { useDispatch } from 'react-redux';
 import { deleteOrder } from '../../../actions/order';
+import { largeClockSize, mediumClockSize, smallClockSize } from '../../../constarts/clockSize';
 
 const Order = ({ order }) => {
     const dispatch = useDispatch();
@@ -15,13 +16,13 @@ const Order = ({ order }) => {
     const endTime = new Date(order.end_time).toLocaleString();
     let clockSize;
     switch (order.size) {
-        case 3600000:
+        case smallClockSize:
             clockSize = 'small';
             break;
-        case 7200000:
+        case mediumClockSize:
             clockSize = 'medium';
             break;
-        case 10800000:
+        case largeClockSize:
             clockSize = 'large';
             break;
         default:

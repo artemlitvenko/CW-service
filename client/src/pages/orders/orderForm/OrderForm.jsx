@@ -8,6 +8,7 @@ import { createOrder, getMastersForOrder } from '../../../actions/order';
 import OrderMaster from '../orderMaster/OrderMaster';
 import PopupCreate from '../popupCreate/PopupCreate';
 import { setMastersLoaded, setPopupCreateDisplayOrder } from '../../../constarts/actionOrderСreaters';
+import { largeClockSize, mediumClockSize, smallClockSize } from '../../../constarts/clockSize';
 
 const OrderForm = () => {
     const dispatch = useDispatch();
@@ -29,11 +30,6 @@ const OrderForm = () => {
     }));
     const citySelect = orderObj.map((city) => <option value={city._id}>{city.city_name}</option>);
 
-    const oneHourInMs = 60 * 60 * 1000;
-    const smallClockSize = oneHourInMs;
-    const mediumClockSize = oneHourInMs * 2;
-    const largeClockSize = oneHourInMs * 3;
-
     let startDate = orderDate;
     let endDate = +startDate + Number(orderSize);
 
@@ -49,15 +45,13 @@ const OrderForm = () => {
         },
         [dispatch, clientName, clientEmail, orderCity, Number(orderSize), startDate, endDate],
     );
-    const loadedMasters = useSelector((state) => state.orderFormReducer.loaded);
 
-    const mastersResultList = useSelector((state) => state.orderFormReducer.masters).map((master) => (
-        <OrderMaster createOrderHandler={createOrderHandler} master={master} />
-    ));
+    const { loaded: loadedMasters, masters } = useSelector((state) => state.orderFormReducer);
+    const mastersResultList = masters.map((master) => <OrderMaster createOrderHandler={createOrderHandler} master={master} />);
 
     const mastersResult = () => {
         if (loadedMasters && mastersResultList.length === 0) {
-            return <div className="find-master-result">Masters not found</div>;
+            return <div className="find-master-result">Masters not found. Try searching using different settings</div>;
         } else {
             return <div className="find-master-result">{mastersResultList}</div>;
         }
