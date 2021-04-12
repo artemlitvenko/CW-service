@@ -1,7 +1,7 @@
 import React from 'react';
 import './Header.css';
 import logo from '../../assets/img/logo.svg';
-import { NavLink } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../reducers/userReducer';
 
@@ -23,6 +23,7 @@ const Header = () => {
                             {isAuth && <NavLink to="/masterslist">Masters list</NavLink>}
                             {isAuth && <NavLink to="/citieslist">Cities list</NavLink>}
                             {isAuth && <NavLink to="/clientslist">Clients list</NavLink>}
+                            {isAuth && <Redirect to="/" />}
                         </div>
                         <div className="log-in">
                             {!isAuth && <NavLink to="/login">Log In</NavLink>}

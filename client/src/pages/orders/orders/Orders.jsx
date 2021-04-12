@@ -1,8 +1,14 @@
 import React from 'react';
 import './Orders.css';
+import Order from '../order/Order';
+import { useSelector } from 'react-redux';
 
-const Orders = () => {
-    return <div>Orders item</div>;
+const Orders = ({ setCurrentOrderId }) => {
+    const ordersList = useSelector((state) => state.orderReducer.orders).map((order) => (
+        <Order order={order} setCurrentOrderId={setCurrentOrderId} />
+    ));
+
+    return <div>{ordersList}</div>;
 };
 
 export default Orders;

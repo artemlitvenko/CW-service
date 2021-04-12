@@ -87,7 +87,7 @@ class OrderController {
 
     getOrder = async (req, res) => {
         try {
-            const order = await Order.find();
+            const order = await Order.find().populate({ path: 'master', select: 'name' }).populate({ path: 'client', select: 'client_name' });
             return res.json(order);
         } catch (e) {
             res.status(500).json(e);

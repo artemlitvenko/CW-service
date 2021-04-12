@@ -29,7 +29,6 @@ class MasterController {
                 res.status(400).json({ message: 'ID не указан' });
             }
             const updatedMaster = await Master.findByIdAndUpdate(id, master, { new: true });
-            console.log(updatedMaster);
             return res.json(updatedMaster);
         } catch (e) {
             res.status(500).json(e);
