@@ -46,7 +46,7 @@ const PopupEdit = ({ currentId, setCurrentId }) => {
                         X
                     </button>
                 </div>
-                <Input type="text" name="name" placeholder="Master name" value={editMasterName.name} setValue={editSetMasterName} />
+                <Input maxlength="25" type="text" name="name" placeholder="Master name" value={editMasterName.name} setValue={editSetMasterName} />
                 <h4>Change rating of master</h4>
                 <select name="rating" value={editMasterRating.rating} onChange={(event) => editSetMasterRating(event.target.value)}>
                     <option value="0">0</option>

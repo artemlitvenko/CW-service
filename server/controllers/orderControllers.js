@@ -29,7 +29,6 @@ class OrderController {
                     let ordersStartTime = orders[ii].start_time;
                     let ordersEndTime = orders[ii].end_time;
                     let clientStartTime = new Date(startDate);
-
                     let ordersStartTimeShort = moment(ordersStartTime).format('YYYY MM DD');
 
                     let oldOrder = [moment(+ordersStartTime), moment(+ordersEndTime)];
@@ -44,11 +43,17 @@ class OrderController {
                         break;
                     }
                 }
+
+                //end for ii
+
                 if (!isBusy) {
                     const masterList = await Master.find({ _id: masters[i]._id });
                     mastersResultList.push(masterList);
                 }
             }
+
+            //end for i
+
             let mastersReadyList = mastersResultList.flat();
             return res.json(mastersReadyList);
         } catch (e) {
@@ -72,7 +77,9 @@ class OrderController {
 
             let orderId = order._id;
             let addOrderId = { client_order: orderId };
+            let addOrderIdToMaster = { order: orderId };
             await Client.findByIdAndUpdate(client, addOrderId, { new: true });
+            await Master.findByIdAndUpdate(master, addOrderIdToMaster, { new: true });
 
             const message = {
                 to: req.body.client_email,
