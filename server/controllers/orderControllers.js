@@ -77,8 +77,14 @@ class OrderController {
 
             let orderId = order._id;
             let addOrderId = { client_order: orderId };
-            let addOrderIdToMaster = { order: orderId };
+            //let addOrderIdToMaster = { order: orderId };
             await Client.findByIdAndUpdate(client, addOrderId, { new: true });
+
+            let currentMaster = await Master.findById(master);
+            let currentMasterOrder = currentMaster.order;
+            currentMasterOrder.push(orderId);
+
+            let addOrderIdToMaster = { order: currentMasterOrder };
             await Master.findByIdAndUpdate(master, addOrderIdToMaster, { new: true });
 
             const message = {
@@ -121,7 +127,16 @@ class OrderController {
             if (!id) {
                 res.status(400).json({ message: 'ID не указан' });
             }
+
             const order = await Order.findByIdAndDelete(id);
+            const masterWithCurrentOrder = await Master.findOne({ order: id });
+
+            let masterAllOrder = masterWithCurrentOrder.order.filter((deleteId) => deleteId != id);
+
+            let masterId = masterWithCurrentOrder._id;
+            let addOrderIdToMaster = { order: masterAllOrder };
+            await Master.findByIdAndUpdate(masterId, addOrderIdToMaster, { new: true });
+
             return res.json(order);
         } catch (e) {
             res.status(500).json(e);

@@ -63,6 +63,7 @@ const OrderForm = () => {
                 <h1>Fill out the form and select the right master for you</h1>
             </div>
             <input
+                maxLength="25"
                 className="input-text"
                 type="text"
                 placeholder="Your name"
@@ -71,6 +72,7 @@ const OrderForm = () => {
                 onChange={(event) => setClientName(event.target.value)}
             />
             <input
+                maxLength="25"
                 className="input-text"
                 type="text"
                 placeholder="Your email"
