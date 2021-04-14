@@ -9,6 +9,7 @@ import OrderMaster from '../orderMaster/OrderMaster';
 import PopupCreate from '../popupCreate/PopupCreate';
 import { setMastersLoaded, setPopupCreateDisplayOrder } from '../../../constarts/actionOrderСreaters';
 import { largeClockSize, mediumClockSize, smallClockSize } from '../../../constarts/clockSize';
+import { setHours, setMinutes } from 'date-fns';
 
 const OrderForm = () => {
     const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const OrderForm = () => {
     const [clientEmail, setClientEmail] = useState('');
 
     const [orderDate, setOrderDate] = useState(new Date());
+
     const [orderSize, setOrderSize] = useState({ size: '' });
     const [orderCity, setOrderCity] = useState({
         city: { city_name: '', _id: '' },
@@ -107,6 +109,8 @@ const OrderForm = () => {
                     timeCaption="time"
                     dateFormat="MMMM d, yyyy h aa"
                     minDate={new Date()}
+                    minTime={setMinutes(orderDate, 60)}
+                    maxTime={setHours(setMinutes(new Date(), 0), 21)}
                     disablePast
                 />
             </div>
