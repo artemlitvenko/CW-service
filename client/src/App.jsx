@@ -9,7 +9,7 @@ import OrdersList from './pages/orders/ordersList/OrdersList';
 import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
 import Registration from './pages/registration/Registration';
-import Login from './pages/login/Login';
+import Login from './pages/login/login/Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { auth } from './actions/user';
 

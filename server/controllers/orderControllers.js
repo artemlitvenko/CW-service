@@ -29,7 +29,6 @@ class OrderController {
                     let ordersStartTime = orders[ii].start_time;
                     let ordersEndTime = orders[ii].end_time;
                     let clientStartTime = new Date(startDate);
-
                     let ordersStartTimeShort = moment(ordersStartTime).format('YYYY MM DD');
 
                     let oldOrder = [moment(+ordersStartTime), moment(+ordersEndTime)];
@@ -44,11 +43,17 @@ class OrderController {
                         break;
                     }
                 }
+
+                //end for ii
+
                 if (!isBusy) {
                     const masterList = await Master.find({ _id: masters[i]._id });
                     mastersResultList.push(masterList);
                 }
             }
+
+            //end for i
+
             let mastersReadyList = mastersResultList.flat();
             return res.json(mastersReadyList);
         } catch (e) {
@@ -72,7 +77,15 @@ class OrderController {
 
             let orderId = order._id;
             let addOrderId = { client_order: orderId };
+            //let addOrderIdToMaster = { order: orderId };
             await Client.findByIdAndUpdate(client, addOrderId, { new: true });
+
+            let currentMaster = await Master.findById(master);
+            let currentMasterOrder = currentMaster.order;
+            currentMasterOrder.push(orderId);
+
+            let addOrderIdToMaster = { order: currentMasterOrder };
+            await Master.findByIdAndUpdate(master, addOrderIdToMaster, { new: true });
 
             const message = {
                 to: req.body.client_email,
@@ -114,7 +127,16 @@ class OrderController {
             if (!id) {
                 res.status(400).json({ message: 'ID не указан' });
             }
+
             const order = await Order.findByIdAndDelete(id);
+            const masterWithCurrentOrder = await Master.findOne({ order: id });
+
+            let masterAllOrder = masterWithCurrentOrder.order.filter((deleteId) => deleteId != id);
+
+            let masterId = masterWithCurrentOrder._id;
+            let addOrderIdToMaster = { order: masterAllOrder };
+            await Master.findByIdAndUpdate(masterId, addOrderIdToMaster, { new: true });
+
             return res.json(order);
         } catch (e) {
             res.status(500).json(e);

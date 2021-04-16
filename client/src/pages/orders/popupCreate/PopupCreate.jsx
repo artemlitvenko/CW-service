@@ -8,6 +8,7 @@ const PopupCreate = () => {
 
     const popupCreateClose = useCallback(() => {
         dispatch(setPopupCreateDisplayOrder(false));
+        window.location.reload();
     }, [dispatch]);
 
     if (!popupCreateDisplay) {
@@ -19,7 +20,7 @@ const PopupCreate = () => {
             <div className="popup-content" onClick={(event) => event.stopPropagation()}>
                 <div className="popup-header">
                     <div className="popup-title">Order was created</div>
-                    <button className="popup-close" onClick={() => dispatch(setPopupCreateDisplayOrder(false))}>
+                    <button className="popup-close" onClick={popupCreateClose}>
                         X
                     </button>
                 </div>

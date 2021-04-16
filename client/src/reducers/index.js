@@ -6,6 +6,7 @@ import cityReducer from './cityReducer';
 import masterReducer from './masterReducer';
 import orderFormReducer from './orderFormReducer';
 import orderReducer from './orderReducer';
+import { reducer as formReducer } from 'redux-form';
 
 const rootReduser = combineReducers({
     user: userReducer,
@@ -13,6 +14,7 @@ const rootReduser = combineReducers({
     masterReducer: masterReducer,
     orderFormReducer: orderFormReducer,
     orderReducer: orderReducer,
+    form: formReducer,
 });
 
 export const store = createStore(rootReduser, composeWithDevTools(applyMiddleware(thunk)));

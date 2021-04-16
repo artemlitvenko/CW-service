@@ -9,9 +9,35 @@ import OrderMaster from '../orderMaster/OrderMaster';
 import PopupCreate from '../popupCreate/PopupCreate';
 import { setMastersLoaded, setPopupCreateDisplayOrder } from '../../../constarts/actionOrderСreaters';
 import { largeClockSize, mediumClockSize, smallClockSize } from '../../../constarts/clockSize';
+//import { setHours, setMinutes } from 'date-fns';
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
+import { longEmail, longValue, needEmail, requiredField, shortValue } from '../../../constarts/validationMessage';
 
 const OrderForm = () => {
     const dispatch = useDispatch();
+    const formik = useFormik({
+        initialValues: {
+            clientName: '',
+            clientEmail: '',
+            orderSize: '',
+            orderCity: '',
+            orderDate: new Date(),
+            endDate: '',
+        },
+        validationSchema: Yup.object({
+            clientName: Yup.string().required(requiredField).min(3, shortValue).max(30, longValue),
+            clientEmail: Yup.string().required(requiredField).email(needEmail).max(30, longEmail),
+            orderSize: Yup.string().required(requiredField),
+            orderCity: Yup.string().required(requiredField),
+        }),
+        onSubmit: (values) => {
+            endDate = +orderDate + Number(values.orderSize);
+            dispatch(getMastersForOrder(values.orderCity, orderDate, endDate));
+            dispatch(setMastersLoaded(false));
+        },
+    });
+
     useEffect(() => {
         dispatch(getCity());
     }, []);
@@ -20,6 +46,7 @@ const OrderForm = () => {
     const [clientEmail, setClientEmail] = useState('');
 
     const [orderDate, setOrderDate] = useState(new Date());
+
     const [orderSize, setOrderSize] = useState({ size: '' });
     const [orderCity, setOrderCity] = useState({
         city: { city_name: '', _id: '' },
@@ -31,16 +58,21 @@ const OrderForm = () => {
     const citySelect = orderObj.map((city) => <option value={city._id}>{city.city_name}</option>);
 
     let startDate = orderDate;
-    let endDate = +startDate + Number(orderSize);
-
-    const findMasterHandler = useCallback(() => {
-        dispatch(getMastersForOrder(orderCity, startDate, endDate));
-        dispatch(setMastersLoaded(false));
-    }, [dispatch, orderCity, startDate, endDate]);
+    let endDate = +startDate + Number(formik.values.orderSize);
 
     const createOrderHandler = useCallback(
         (currentMasterId) => {
-            dispatch(createOrder(clientName, clientEmail, currentMasterId, orderCity, Number(orderSize), startDate, endDate));
+            dispatch(
+                createOrder(
+                    formik.values.clientName,
+                    formik.values.clientEmail,
+                    currentMasterId,
+                    formik.values.orderCity,
+                    formik.values.orderSize,
+                    formik.values.orderDate,
+                    endDate,
+                ),
+            );
             dispatch(setPopupCreateDisplayOrder(true));
         },
         [dispatch, clientName, clientEmail, orderCity, Number(orderSize), startDate, endDate],
@@ -62,55 +94,69 @@ const OrderForm = () => {
             <div className="title">
                 <h1>Fill out the form and select the right master for you</h1>
             </div>
-            <input
-                className="input-text"
-                type="text"
-                placeholder="Your name"
-                name="name"
-                value={clientName}
-                onChange={(event) => setClientName(event.target.value)}
-            />
-            <input
-                className="input-text"
-                type="text"
-                placeholder="Your email"
-                name="email"
-                value={clientEmail}
-                onChange={(event) => setClientEmail(event.target.value)}
-            />
-            <div className="subtitle-form">Select watch size</div>
-            <div className="watch-size">
-                <select name="size" value={orderSize} onChange={(event) => setOrderSize(event.target.value)}>
-                    <option value="default">Choose size of watch</option>
+            <form onSubmit={formik.handleSubmit}>
+                {formik.errors.clientName && formik.touched.clientName ? <span className="validation-text">{formik.errors.clientName}</span> : null}
+                <input
+                    value={formik.values.clientName}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    name="clientName"
+                    className="input-text"
+                    type="text"
+                    placeholder="Your name"
+                    maxLength="30"
+                />
+
+                {formik.errors.clientEmail && formik.touched.clientEmail ? (
+                    <span className="validation-text">{formik.errors.clientEmail}</span>
+                ) : null}
+                <input
+                    value={formik.values.clientEmail}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    name="clientEmail"
+                    className="input-text"
+                    type="text"
+                    placeholder="Your email"
+                    maxLength="30"
+                />
+                <div className="subtitle-form">Select your city</div>
+                {formik.errors.orderSize && formik.touched.orderSize ? <span className="validation-text">{formik.errors.orderSize}</span> : null}
+                <select name="orderSize" value={formik.values.orderSize} onChange={formik.handleChange} onBlur={formik.handleBlur}>
+                    <option value="">Choose size of watch</option>
                     <option value={smallClockSize}>small</option>
                     <option value={mediumClockSize}>medium</option>
                     <option value={largeClockSize}>large</option>
                 </select>
-            </div>
-            <div className="subtitle-form">Select your city</div>
-            <div className="city">
-                <select name="city" value={orderCity.city} onChange={(event) => setOrderCity(event.target.value)}>
-                    <option value="default">Choose city of master</option>
-                    {citySelect}
-                </select>
-            </div>
-            <div className="subtitle-form">Choose a time that is convenient for you</div>
-            <div className="datetime-picker">
-                <DatePicker
-                    selected={orderDate}
-                    onChange={(date) => setOrderDate(date)}
-                    showTimeSelect
-                    timeFormat="HH:mm"
-                    timeIntervals={60}
-                    timeCaption="time"
-                    dateFormat="MMMM d, yyyy h aa"
-                    minDate={new Date()}
-                    disablePast
-                />
-            </div>
-            <button type="submit" onClick={() => findMasterHandler()}>
-                Find master
-            </button>
+                <div className="subtitle-form">Select your city</div>
+                <div className="city">
+                    {formik.errors.orderCity && formik.touched.orderCity ? <span className="validation-text">{formik.errors.orderCity}</span> : null}
+                    <select name="orderCity" value={formik.values.orderCity._id} onChange={formik.handleChange} onBlur={formik.handleBlur}>
+                        <option value="">Choose city of master</option>
+                        {citySelect}
+                    </select>
+                </div>
+                <div className="subtitle-form">Choose a time that is convenient for you</div>
+                <div className="datetime-picker">
+                    <DatePicker
+                        selected={orderDate}
+                        value={orderDate}
+                        onChange={(date) => setOrderDate(date)}
+                        onBlur={formik.handleBlur}
+                        showTimeSelect
+                        timeFormat="HH:mm"
+                        timeIntervals={60}
+                        timeCaption="time"
+                        dateFormat="MMMM d, yyyy h aa"
+                        minDate={new Date()}
+                        /*minTime={setMinutes(orderDate, 60)}
+                                maxTime={setHours(setMinutes(new Date(), 0), 21)}*/
+                        disablePast
+                        name="orderDate"
+                    />
+                </div>
+                <button type="submit">Find master</button>
+            </form>
             {mastersResult()}
             <PopupCreate />
         </div>

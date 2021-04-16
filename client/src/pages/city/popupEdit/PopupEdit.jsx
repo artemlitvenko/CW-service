@@ -1,44 +1,74 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import Input from '../../../components/input/Input';
+import React, { useCallback, useMemo } from 'react';
 import './PopupEdit.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateCities } from '../../../actions/city';
 import { setPopupEditDisplay } from '../../../constarts/actionCityСreaters';
+import * as Yup from 'yup';
+import { Formik } from 'formik';
+import { longValue, requiredField } from '../../../constarts/validationMessage';
 
-const PopupEdit = ({ currentId, setCurrentId }) => {
+const PopupEdit = ({ currentId }) => {
     const dispatch = useDispatch();
-    const [editCityName, editSetCityName] = useState({ city_name: '' });
     const popupEditDisplay = useSelector((state) => state.cityReducer.popupEditDisplay);
     const cityEdit = useSelector((state) => (currentId ? state.cityReducer.cities.find((c) => c._id === currentId) : null));
 
-    useEffect(() => {
-        if (cityEdit) editSetCityName(cityEdit);
-    }, [cityEdit]);
+    const initialValues = useMemo(
+        () => ({
+            cityName: cityEdit ? cityEdit.city_name : '',
+        }),
+        [cityEdit],
+    );
 
-    const updateHandler = useCallback(() => {
-        dispatch(updateCities(currentId, editCityName));
-        dispatch(setPopupEditDisplay(false));
-    }, [currentId, editCityName]);
+    const validationSchema = useMemo(
+        () =>
+            Yup.object({
+                cityName: Yup.string().required(requiredField).max(30, longValue),
+            }),
+        [],
+    );
+    const onSubmit = useCallback(
+        (values) => {
+            dispatch(updateCities(currentId, values.cityName));
+            dispatch(setPopupEditDisplay(false));
+        },
+        [currentId, dispatch],
+    );
 
     if (!popupEditDisplay) {
         return null;
     }
 
     return (
-        <div className="popup popup-edit" onClick={() => dispatch(setPopupEditDisplay(false))}>
-            <div className="popup-content" onClick={(event) => event.stopPropagation()}>
-                <div className="popup-header">
-                    <div className="popup-title">Edit city</div>
-                    <button className="popup-close" onClick={() => dispatch(setPopupEditDisplay(false))}>
-                        X
-                    </button>
+        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
+            {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
+                <div className="popup popup-add" onClick={() => dispatch(setPopupEditDisplay(false))}>
+                    <div className="popup-content" onClick={(event) => event.stopPropagation()}>
+                        <div className="popup-header">
+                            <div className="popup-title">Add new city</div>
+                            <button className="popup-close" onClick={() => dispatch(setPopupEditDisplay(false))}>
+                                X
+                            </button>
+                        </div>
+                        <form onSubmit={handleSubmit}>
+                            {errors.cityName && touched.cityName ? <span className="validation-text">{errors.cityName}</span> : null}
+                            <input
+                                value={values.cityName}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                name="cityName"
+                                className="input-text"
+                                type="text"
+                                placeholder="New city name"
+                                maxLength="30"
+                            />
+                            <button className="popup-send" type="submit">
+                                add city
+                            </button>
+                        </form>
+                    </div>
                 </div>
-                <Input type="text" name="city_name" placeholder="City name" value={editCityName.city_name} setValue={editSetCityName} />
-                <button className="popup-send" onClick={() => updateHandler()}>
-                    edit city
-                </button>
-            </div>
-        </div>
+            )}
+        </Formik>
     );
 };
 
