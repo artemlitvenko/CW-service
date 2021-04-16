@@ -6,6 +6,7 @@ import { createMaster } from '../../../actions/master';
 import { getCity } from '../../../actions/city';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import { longValue, requiredField, shortValue } from '../../../constarts/validationMessage';
 
 const PopupAdd = () => {
     const dispatch = useDispatch();
@@ -33,12 +34,9 @@ const PopupAdd = () => {
                 masterCity: '',
             }}
             validationSchema={Yup.object({
-                masterName: Yup.string()
-                    .required('Sorry, this field is required!')
-                    .min(3, 'Sorry, name is to short!')
-                    .max(30, 'Sorry, name is to long!'),
-                masterRating: Yup.string().required('Sorry, this field is required!'),
-                masterCity: Yup.string().required('Sorry, this field is required!'),
+                masterName: Yup.string().required(requiredField).min(3, shortValue).max(30, longValue),
+                masterRating: Yup.string().required(requiredField),
+                masterCity: Yup.string().required(requiredField),
             })}
             onSubmit={(values) => {
                 dispatch(createMaster(values.masterName, values.masterRating, { _id: values.masterCity }));

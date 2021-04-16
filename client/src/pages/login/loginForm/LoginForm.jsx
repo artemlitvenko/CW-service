@@ -1,27 +1,39 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import './LoginForm.css';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { login } from '../../../actions/user';
 import { useDispatch } from 'react-redux';
+import { longEmail, longPassword, needEmail, requiredField } from '../../../constarts/validationMessage';
 
 const LoginForm = () => {
     const dispatch = useDispatch();
 
+    const validationSchema = useMemo(
+        () =>
+            Yup.object({
+                email: Yup.string().required(requiredField).email(needEmail).max(30, longEmail),
+                password: Yup.string().required(requiredField).max(30, longPassword),
+            }),
+        [],
+    );
+    const onSubmit = useCallback(
+        (values) => {
+            dispatch(login(values.email, values.password));
+        },
+        [dispatch],
+    );
+
+    const initialValues = useMemo(
+        () => ({
+            email: '',
+            password: '',
+        }),
+        [],
+    );
+
     return (
-        <Formik
-            initialValues={{
-                email: '',
-                password: '',
-            }}
-            validationSchema={Yup.object({
-                email: Yup.string().required('Sorry, this field is required!').email('Needs to be an email').max(30, 'Sorry, email is to long!'),
-                password: Yup.string().required('Sorry, this field is required!').max(30, 'Sorry, password is to long!'),
-            })}
-            onSubmit={(values) => {
-                dispatch(login(values.email, values.password));
-            }}
-        >
+        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
                 <div className="auth-form">
                     <div className="title">

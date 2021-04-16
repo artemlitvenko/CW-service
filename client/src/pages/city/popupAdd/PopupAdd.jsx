@@ -5,6 +5,7 @@ import { createCity } from '../../../actions/city';
 import { setPopupAddDisplay } from '../../../constarts/actionCityСreaters';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import { longValue, requiredField } from '../../../constarts/validationMessage';
 
 const PopupAdd = () => {
     const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const PopupAdd = () => {
                 cityName: '',
             }}
             validationSchema={Yup.object({
-                cityName: Yup.string().required('Sorry, this field is required!').max(30, 'Sorry, name is to long!'),
+                cityName: Yup.string().required(requiredField).max(30, longValue),
             })}
             onSubmit={(values) => {
                 dispatch(createCity(values.cityName));
