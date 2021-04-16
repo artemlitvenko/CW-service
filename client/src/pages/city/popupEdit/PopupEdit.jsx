@@ -14,7 +14,7 @@ const PopupEdit = ({ currentId }) => {
 
     const initialValues = useMemo(
         () => ({
-            cityName: cityEdit.city_name,
+            cityName: cityEdit ? cityEdit.city_name : '',
         }),
         [cityEdit],
     );
@@ -26,10 +26,13 @@ const PopupEdit = ({ currentId }) => {
             }),
         [],
     );
-    const onSubmit = useCallback((values) => {
-        dispatch(updateCities(currentId, values.cityName));
-        dispatch(setPopupEditDisplay(false));
-    }, []);
+    const onSubmit = useCallback(
+        (values) => {
+            dispatch(updateCities(currentId, values.cityName));
+            dispatch(setPopupEditDisplay(false));
+        },
+        [currentId, dispatch],
+    );
 
     if (!popupEditDisplay) {
         return null;

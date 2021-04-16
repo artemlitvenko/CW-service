@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import './PopupEdit.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPopupEditDisplayMaster } from '../../../constarts/actionMasterСreaters';
-import { createMaster, updateMaster } from '../../../actions/master';
+import { updateMaster } from '../../../actions/master';
 import { getCity } from '../../../actions/city';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { longValue, requiredField, shortValue } from '../../../constarts/validationMessage';
+import { ratings } from '../../../constarts/ratings';
 
 const PopupEdit = ({ currentId }) => {
     useEffect(() => {
@@ -20,27 +21,40 @@ const PopupEdit = ({ currentId }) => {
     const cityObj = useSelector((state) => state.cityReducer.cities).map((city) => ({ city_name: city.city_name, _id: city._id }));
     const citySelect = cityObj.map((city) => <option value={city._id}>{city.city_name}</option>);
 
+    const ratingsSelect = ratings.map((rating) => <option value={rating}>{rating}</option>);
+
+    const initialValues = useMemo(
+        () => ({
+            masterName: masterEdit ? masterEdit.name : '',
+            masterRating: '',
+            masterCity: '',
+        }),
+        [masterEdit],
+    );
+
+    const validationSchema = useMemo(
+        () =>
+            Yup.object({
+                masterName: Yup.string().required(requiredField).min(3, shortValue).max(30, longValue),
+                masterRating: Yup.string().required(requiredField),
+                masterCity: Yup.string().required(requiredField),
+            }),
+        [],
+    );
+    const onSubmit = useCallback(
+        (values) => {
+            dispatch(updateMaster(currentId, values.masterName, values.masterRating, { _id: values.masterCity }));
+            dispatch(setPopupEditDisplayMaster(false));
+        },
+        [currentId, dispatch],
+    );
+
     if (!popupEditDisplay) {
         return null;
     }
 
     return (
-        <Formik
-            initialValues={{
-                masterName: masterEdit.name,
-                masterRating: '',
-                masterCity: '',
-            }}
-            validationSchema={Yup.object({
-                masterName: Yup.string().required(requiredField).min(3, shortValue).max(30, longValue),
-                masterRating: Yup.string().required(requiredField),
-                masterCity: Yup.string().required(requiredField),
-            })}
-            onSubmit={(values) => {
-                dispatch(updateMaster(currentId, values.masterName, values.masterRating, { _id: values.masterCity }));
-                dispatch(setPopupEditDisplayMaster(false));
-            }}
-        >
+        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
                 <div className="popup popup-add" onClick={() => dispatch(setPopupEditDisplayMaster(false))}>
                     <div className="popup-content" onClick={(event) => event.stopPropagation()}>
@@ -66,12 +80,7 @@ const PopupEdit = ({ currentId }) => {
                             {errors.masterRating && touched.masterRating ? <span className="validation-text">{errors.masterRating}</span> : null}
                             <select name="masterRating" value={values.masterRating} onChange={handleChange} onBlur={handleBlur}>
                                 <option value="">Choose rating of master</option>
-                                <option value="0">0</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
+                                {ratingsSelect}
                             </select>
                             <h4>Add city of master</h4>
                             {errors.masterCity && touched.masterCity ? <span className="validation-text">{errors.masterCity}</span> : null}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import './PopupAdd.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { createCity } from '../../../actions/city';
@@ -11,23 +11,31 @@ const PopupAdd = () => {
     const dispatch = useDispatch();
     const popupDisplay = useSelector((state) => state.cityReducer.popupAddDisplay);
 
+    const initialValues = useMemo(
+        () => ({
+            cityName: '',
+        }),
+        [],
+    );
+
+    const validationSchema = useMemo(
+        () =>
+            Yup.object({
+                cityName: Yup.string().required(requiredField).max(30, longValue),
+            }),
+        [],
+    );
+    const onSubmit = useCallback((values) => {
+        dispatch(createCity(values.cityName));
+        dispatch(setPopupAddDisplay(false));
+    }, []);
+
     if (!popupDisplay) {
         return null;
     }
 
     return (
-        <Formik
-            initialValues={{
-                cityName: '',
-            }}
-            validationSchema={Yup.object({
-                cityName: Yup.string().required(requiredField).max(30, longValue),
-            })}
-            onSubmit={(values) => {
-                dispatch(createCity(values.cityName));
-                dispatch(setPopupAddDisplay(false));
-            }}
-        >
+        <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
                 <div className="popup popup-add" onClick={() => dispatch(setPopupAddDisplay(false))}>
                     <div className="popup-content" onClick={(event) => event.stopPropagation()}>
