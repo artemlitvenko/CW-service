@@ -9,20 +9,26 @@ import OrderMaster from '../orderMaster/OrderMaster';
 import PopupCreate from '../popupCreate/PopupCreate';
 import { setMastersLoaded, setPopupCreateDisplayOrder } from '../../../constarts/actionOrderСreaters';
 import { largeClockSize, mediumClockSize, smallClockSize } from '../../../constarts/clockSize';
-//import { setHours, setMinutes } from 'date-fns';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { longEmail, longValue, needEmail, requiredField, shortValue } from '../../../constarts/validationMessage';
+import moment from 'moment';
 
 const OrderForm = () => {
     const dispatch = useDispatch();
+
+    const yesterday = moment().subtract(1, 'day');
+    const disablePastDt = (current) => {
+        return current.isAfter(yesterday);
+    };
+
     const formik = useFormik({
         initialValues: {
             clientName: '',
             clientEmail: '',
             orderSize: '',
             orderCity: '',
-            orderDate: new Date(),
+            orderDate: '',
             endDate: '',
         },
         validationSchema: Yup.object({
@@ -32,7 +38,8 @@ const OrderForm = () => {
             orderCity: Yup.string().required(requiredField),
         }),
         onSubmit: (values) => {
-            endDate = +orderDate + Number(values.orderSize);
+            console.log('orderDate', orderDate);
+            //endDate = +orderDate + Number(values.orderSize);
             dispatch(getMastersForOrder(values.orderCity, orderDate, endDate));
             dispatch(setMastersLoaded(false));
         },
@@ -62,15 +69,24 @@ const OrderForm = () => {
 
     const createOrderHandler = useCallback(
         (currentMasterId) => {
+            console.log(
+                formik.values.clientName,
+                formik.values.clientEmail,
+                currentMasterId,
+                formik.values.orderCity,
+                Number(formik.values.orderSize),
+                orderDate,
+                new Date(endDate),
+            );
             dispatch(
                 createOrder(
                     formik.values.clientName,
                     formik.values.clientEmail,
                     currentMasterId,
                     formik.values.orderCity,
-                    formik.values.orderSize,
-                    formik.values.orderDate,
-                    endDate,
+                    Number(formik.values.orderSize),
+                    orderDate,
+                    new Date(endDate),
                 ),
             );
             dispatch(setPopupCreateDisplayOrder(true));
@@ -138,6 +154,7 @@ const OrderForm = () => {
                 </div>
                 <div className="subtitle-form">Choose a time that is convenient for you</div>
                 <div className="datetime-picker">
+                    {formik.errors.orderDate && formik.touched.orderDate ? <span className="validation-text">{formik.errors.orderDate}</span> : null}
                     <DatePicker
                         selected={orderDate}
                         value={orderDate}
@@ -148,10 +165,7 @@ const OrderForm = () => {
                         timeIntervals={60}
                         timeCaption="time"
                         dateFormat="MMMM d, yyyy h aa"
-                        minDate={new Date()}
-                        /*minTime={setMinutes(orderDate, 60)}
-                                maxTime={setHours(setMinutes(new Date(), 0), 21)}*/
-                        disablePast
+                        minDate={Date.now()}
                         name="orderDate"
                     />
                 </div>

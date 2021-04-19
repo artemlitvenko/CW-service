@@ -18,6 +18,7 @@ const PopupEdit = ({ currentId }) => {
 
     const popupEditDisplay = useSelector((state) => state.masterReducer.popupEditDisplay);
     const masterEdit = useSelector((state) => (currentId ? state.masterReducer.masters.find((m) => m._id === currentId) : null));
+
     const cityObj = useSelector((state) => state.cityReducer.cities).map((city) => ({ city_name: city.city_name, _id: city._id }));
     const citySelect = cityObj.map((city) => <option value={city._id}>{city.city_name}</option>);
 
@@ -43,7 +44,8 @@ const PopupEdit = ({ currentId }) => {
     );
     const onSubmit = useCallback(
         (values) => {
-            dispatch(updateMaster(currentId, values.masterName, values.masterRating, { _id: values.masterCity }));
+            console.log(currentId, values.masterName, values.masterRating, values.masterCity);
+            dispatch(updateMaster(currentId, values.masterName, values.masterRating, values.masterCity));
             dispatch(setPopupEditDisplayMaster(false));
         },
         [currentId, dispatch],
@@ -79,13 +81,13 @@ const PopupEdit = ({ currentId }) => {
                             <h4>Master rating</h4>
                             {errors.masterRating && touched.masterRating ? <span className="validation-text">{errors.masterRating}</span> : null}
                             <select name="masterRating" value={values.masterRating} onChange={handleChange} onBlur={handleBlur}>
-                                <option value="">Choose rating of master</option>
+                                {/*<option value="">Choose rating of master</option>*/}
                                 {ratingsSelect}
                             </select>
                             <h4>Add city of master</h4>
                             {errors.masterCity && touched.masterCity ? <span className="validation-text">{errors.masterCity}</span> : null}
                             <select name="masterCity" value={values.masterCity} onChange={handleChange} onBlur={handleBlur}>
-                                <option value="">Choose city of master</option>
+                                {/*<option value={values.masterCity}>Choose city of master</option>*/}
                                 {citySelect}
                             </select>
                             <button className="popup-send" type="submit">

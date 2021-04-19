@@ -1,12 +1,13 @@
 import React from 'react';
 import './Clients.css';
+import { useSelector } from 'react-redux';
+import Client from '../client/Client';
 
-const Clients = () => {
-    return (
-        <div className="list-item">
-            <div className="clients-name">Clients item</div>
-        </div>
-    );
+const Clients = ({ setCurrentClientId }) => {
+    const clientsList = useSelector((state) => state.clientReducer.clients).map((client) => (
+        <Client client={client} setCurrentClientId={setCurrentClientId} />
+    ));
+    return <div>{clientsList}</div>;
 };
 
 export default Clients;

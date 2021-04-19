@@ -1,10 +1,10 @@
-import { ADD_CLIENT, GET_ONE_CLIENT, REMOVE_CLIENT, SET_CLIENT, UPDATE_CLIENT } from '../constarts/actionClientTypes';
+import { ADD_CLIENT, REMOVE_CLIENT, SET_CLIENT } from '../constarts/actionClientTypes';
 
 const defaultState = {
     clients: [],
 };
 
-export default function orderReducer(state = defaultState, action) {
+export default function clientReducer(state = defaultState, action) {
     switch (action.type) {
         case SET_CLIENT:
             return {
@@ -15,11 +15,6 @@ export default function orderReducer(state = defaultState, action) {
             return {
                 ...state,
                 clients: [...state.clients, action.payload],
-            };
-        case UPDATE_CLIENT:
-            return {
-                ...state,
-                clients: [...state.clients.map((client) => (client._id === action.payload._id ? action.payload : client))],
             };
         case REMOVE_CLIENT:
             return {
