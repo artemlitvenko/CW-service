@@ -12,16 +12,9 @@ import { largeClockSize, mediumClockSize, smallClockSize } from '../../../consta
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { longEmail, longValue, needEmail, requiredField, shortValue } from '../../../constarts/validationMessage';
-import moment from 'moment';
-//import moment from 'moment-timezone';
-//const moment = require('moment-timezone');
-import { setMinutes, setHours } from 'date-fns';
 
 const OrderForm = () => {
     const dispatch = useDispatch();
-
-    /*const now = moment().tz('Europe/Kiev');
-    console.log(now);*/
 
     const formik = useFormik({
         initialValues: {
@@ -55,6 +48,12 @@ const OrderForm = () => {
 
     const [orderDate, setOrderDate] = useState(new Date());
 
+    const filterPassedTime = (time) => {
+        const currentDate = new Date();
+        const selectedDate = new Date(time);
+        return currentDate.getTime() < selectedDate.getTime();
+    };
+
     const [orderSize, setOrderSize] = useState({ size: '' });
     const [orderCity, setOrderCity] = useState({
         city: { city_name: '', _id: '' },
@@ -70,15 +69,6 @@ const OrderForm = () => {
 
     const createOrderHandler = useCallback(
         (currentMasterId) => {
-            console.log(
-                formik.values.clientName,
-                formik.values.clientEmail,
-                currentMasterId,
-                formik.values.orderCity,
-                Number(formik.values.orderSize),
-                orderDate,
-                new Date(endDate),
-            );
             dispatch(
                 createOrder(
                     formik.values.clientName,
@@ -166,15 +156,7 @@ const OrderForm = () => {
                         timeCaption="time"
                         dateFormat="MMMM d, yyyy h aa"
                         minDate={new Date()}
-                        minTime={moment().hours()}
-                        maxTime={setHours(setMinutes(new Date(), 30), 20)}
-                        /*minTime={now.hours(now.hour()).minutes(now.minutes())}
-                        maxTime={now.hours(23).minutes(45)}*/
-                        /*minDate={Date.now()}
-                        minTime={moment().hours().minutes()}
-                        maxTime={setHours(setMinutes(new Date(), 30), 20)}
-                        /!*minTime={setMinutes(new Date(), 0)}
-                        maxTime={setHours(setMinutes(new Date(), 30), 20)}*!/*/
+                        filterTime={filterPassedTime}
                         name="orderDate"
                     />
                 </div>

@@ -65,12 +65,10 @@ class OrderController {
     // End getMasterForOrder
 
     postOrder = async (req, res) => {
-        console.log('postOrder >> before errors', req.body);
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ message: 'Uncorrect request', errors });
         }
-        console.log('postOrder >> after errors', req.body);
         try {
             const { client_name, client_email, master, city, size, start_time, end_time } = req.body;
             console.log(req.body);
