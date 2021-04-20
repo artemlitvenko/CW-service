@@ -1,4 +1,4 @@
-import { maxLength, maxPasswordLength, maxRatingLength, maxSizeLength, minLength, minRatingLength, minSizeLength } from './validationConstants';
+const { maxLength, maxPasswordLength, maxRatingLength, maxSizeLength, minLength, minRatingLength, minSizeLength } = require('./validationConstants');
 
 const { check } = require('express-validator');
 
