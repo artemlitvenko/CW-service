@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_URL } from '../config';
-import { removeClient, setClient, updateClients } from '../constarts/actionClientСreaters';
+import { removeClient, setClient } from '../constarts/actionClientСreaters';
 
 export const getClient = () => {
     return async (dispatch) => {
@@ -8,17 +8,6 @@ export const getClient = () => {
             const response = await axios.get(`${API_URL}api/client`);
             dispatch(setClient(response.data));
         } catch (e) {}
-    };
-};
-
-export const updateClient = (_id) => {
-    return async (dispatch) => {
-        try {
-            const response = await axios.put(`${API_URL}api/client/${_id}`, { _id });
-            dispatch(updateClients(response.data));
-        } catch (e) {
-            console.log('Update Client is crash', e.message);
-        }
     };
 };
 

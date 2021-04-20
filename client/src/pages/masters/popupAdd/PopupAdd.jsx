@@ -44,7 +44,7 @@ const PopupAdd = () => {
         [],
     );
     const onSubmit = useCallback((values) => {
-        dispatch(createMaster(values.masterName, values.masterRating, { _id: values.masterCity }));
+        dispatch(createMaster(values.masterName, Number(values.masterRating), values.masterCity));
         dispatch(setPopupAddDisplayMaster(false));
     }, []);
 

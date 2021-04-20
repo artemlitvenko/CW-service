@@ -12,7 +12,7 @@ const MastersList = () => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(getMaster());
-    }, []); // если массив зависимости пустой, то функция вызовется один раз после отрисовки компонента
+    }, [dispatch]);
 
     const showPopupDeleteHandler = useCallback(() => {
         dispatch(setPopupAddDisplayMaster(true));

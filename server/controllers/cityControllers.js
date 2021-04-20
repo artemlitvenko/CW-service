@@ -1,7 +1,12 @@
 const City = require('../models/City.js');
+const { validationResult } = require('express-validator');
 
 class CityController {
     postCity = async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ message: 'Uncorrect request', errors });
+        }
         try {
             const { city_name } = req.body;
             const city = await City.create({ city_name });

@@ -1,12 +1,18 @@
 const Master = require('../models/Master');
+const Order = require('../models/Order');
+const { validationResult } = require('express-validator');
 
 class MasterController {
     postMaster = async (req, res) => {
-        debugger;
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ message: 'Uncorrect request', errors });
+        }
         try {
             const { name, rating, city } = req.body;
             const master = await Master.create({ name, rating, city });
-            res.json(master);
+            const returnMaster = await Master.findById(master._id).populate({ path: 'city', select: 'city_name' });
+            res.json(returnMaster);
         } catch (e) {
             console.log(e);
         }
@@ -28,8 +34,9 @@ class MasterController {
             if (!id) {
                 res.status(400).json({ message: 'ID не указан' });
             }
-            const updatedMaster = await Master.findByIdAndUpdate(id, master, { new: true });
-            return res.json(updatedMaster);
+            await Master.findByIdAndUpdate(id, master, { new: true });
+            const returnMaster = await Master.findById(id).populate({ path: 'city', select: 'city_name' });
+            return res.json(returnMaster);
         } catch (e) {
             res.status(500).json(e);
         }
@@ -42,6 +49,12 @@ class MasterController {
                 res.status(400).json({ message: 'ID не указан' });
             }
             const master = await Master.findByIdAndDelete(id);
+
+            const allMasterOrders = master.order;
+            for (let i = 0; i < allMasterOrders.length; i++) {
+                await Order.findByIdAndDelete(allMasterOrders[i]);
+            }
+
             return res.json(master);
         } catch (e) {
             res.status(500).json(e);

@@ -1,3 +1,4 @@
+const { validationResult } = require('express-validator');
 const Master = require('../models/Master');
 const Order = require('../models/Order');
 const Client = require('../models/Client');
@@ -64,8 +65,13 @@ class OrderController {
     // End getMasterForOrder
 
     postOrder = async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ message: 'Uncorrect request', errors });
+        }
         try {
             const { client_name, client_email, master, city, size, start_time, end_time } = req.body;
+            console.log(req.body);
             let clientCreate = await Client.findOne({ client_email: client_email }).exec();
             if (!clientCreate) {
                 clientCreate = await Client.create({ client_name, client_email });
@@ -76,14 +82,16 @@ class OrderController {
             res.json(order);
 
             let orderId = order._id;
-            let addOrderId = { client_order: orderId };
-            //let addOrderIdToMaster = { order: orderId };
-            await Client.findByIdAndUpdate(client, addOrderId, { new: true });
+
+            let currentClient = await Client.findById(client);
+            let currentClientOrder = currentClient.client_order;
+            currentClientOrder.push(orderId);
+            let addOrderIdToClient = { client_order: currentClientOrder };
+            await Client.findByIdAndUpdate(client, addOrderIdToClient, { new: true });
 
             let currentMaster = await Master.findById(master);
             let currentMasterOrder = currentMaster.order;
             currentMasterOrder.push(orderId);
-
             let addOrderIdToMaster = { order: currentMasterOrder };
             await Master.findByIdAndUpdate(master, addOrderIdToMaster, { new: true });
 
@@ -129,13 +137,22 @@ class OrderController {
             }
 
             const order = await Order.findByIdAndDelete(id);
+
             const masterWithCurrentOrder = await Master.findOne({ order: id });
-
             let masterAllOrder = masterWithCurrentOrder.order.filter((deleteId) => deleteId != id);
-
             let masterId = masterWithCurrentOrder._id;
             let addOrderIdToMaster = { order: masterAllOrder };
             await Master.findByIdAndUpdate(masterId, addOrderIdToMaster, { new: true });
+
+            // START Delete orderId in Client
+
+            const clientWithCurrentOrder = await Client.findOne({ client_order: id });
+            let clientAllOrder = clientWithCurrentOrder.client_order.filter((deleteId) => deleteId != id);
+            let clientId = clientWithCurrentOrder._id;
+            let addOrderIdToClient = { client_order: clientAllOrder };
+            await Client.findByIdAndUpdate(clientId, addOrderIdToClient, { new: true });
+
+            // END Delete orderId in Client
 
             return res.json(order);
         } catch (e) {
