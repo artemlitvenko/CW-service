@@ -13,14 +13,15 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { longEmail, longValue, needEmail, requiredField, shortValue } from '../../../constarts/validationMessage';
 import moment from 'moment';
+//import moment from 'moment-timezone';
+//const moment = require('moment-timezone');
+import { setMinutes, setHours } from 'date-fns';
 
 const OrderForm = () => {
     const dispatch = useDispatch();
 
-    const yesterday = moment().subtract(1, 'day');
-    const disablePastDt = (current) => {
-        return current.isAfter(yesterday);
-    };
+    /*const now = moment().tz('Europe/Kiev');
+    console.log(now);*/
 
     const formik = useFormik({
         initialValues: {
@@ -154,7 +155,6 @@ const OrderForm = () => {
                 </div>
                 <div className="subtitle-form">Choose a time that is convenient for you</div>
                 <div className="datetime-picker">
-                    {formik.errors.orderDate && formik.touched.orderDate ? <span className="validation-text">{formik.errors.orderDate}</span> : null}
                     <DatePicker
                         selected={orderDate}
                         value={orderDate}
@@ -165,7 +165,16 @@ const OrderForm = () => {
                         timeIntervals={60}
                         timeCaption="time"
                         dateFormat="MMMM d, yyyy h aa"
-                        minDate={Date.now()}
+                        minDate={new Date()}
+                        minTime={moment().hours()}
+                        maxTime={setHours(setMinutes(new Date(), 30), 20)}
+                        /*minTime={now.hours(now.hour()).minutes(now.minutes())}
+                        maxTime={now.hours(23).minutes(45)}*/
+                        /*minDate={Date.now()}
+                        minTime={moment().hours().minutes()}
+                        maxTime={setHours(setMinutes(new Date(), 30), 20)}
+                        /!*minTime={setMinutes(new Date(), 0)}
+                        maxTime={setHours(setMinutes(new Date(), 30), 20)}*!/*/
                         name="orderDate"
                     />
                 </div>

@@ -27,8 +27,8 @@ const PopupEdit = ({ currentId }) => {
     const initialValues = useMemo(
         () => ({
             masterName: masterEdit ? masterEdit.name : '',
-            masterRating: '',
-            masterCity: '',
+            masterRating: masterEdit ? masterEdit.rating : '',
+            masterCity: masterEdit ? masterEdit.city._id : '',
         }),
         [masterEdit],
     );
@@ -44,7 +44,6 @@ const PopupEdit = ({ currentId }) => {
     );
     const onSubmit = useCallback(
         (values) => {
-            console.log(currentId, values.masterName, values.masterRating, values.masterCity);
             dispatch(updateMaster(currentId, values.masterName, values.masterRating, values.masterCity));
             dispatch(setPopupEditDisplayMaster(false));
         },
@@ -87,7 +86,7 @@ const PopupEdit = ({ currentId }) => {
                             <h4>Add city of master</h4>
                             {errors.masterCity && touched.masterCity ? <span className="validation-text">{errors.masterCity}</span> : null}
                             <select name="masterCity" value={values.masterCity} onChange={handleChange} onBlur={handleBlur}>
-                                {/*<option value={values.masterCity}>Choose city of master</option>*/}
+                                {/*<option value={values.masterCity}>{values.masterCity.city_name}</option>*/}
                                 {citySelect}
                             </select>
                             <button className="popup-send" type="submit">
