@@ -27,7 +27,7 @@ const OrderForm = () => {
         },
         validationSchema: Yup.object({
             clientName: Yup.string().required(requiredField).min(3, shortValue).max(30, longValue),
-            clientEmail: Yup.string().required(requiredField).email(needEmail).max(30, longEmail),
+            clientEmail: Yup.string().required(requiredField).email(needEmail).max(60, longEmail),
             orderSize: Yup.string().required(requiredField),
             orderCity: Yup.string().required(requiredField),
         }),

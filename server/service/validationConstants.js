@@ -1,6 +1,7 @@
 exports.minLength = 3;
 exports.maxLength = 30;
-exports.maxPasswordLength = 12;
+exports.maxEmailLength = 60;
+exports.maxPasswordLength = 15;
 exports.minRatingLength = 0;
 exports.maxRatingLength = 5;
 

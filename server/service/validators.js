@@ -1,3 +1,4 @@
+const { maxEmailLength } = require('./validationConstants');
 const { maxLength, maxPasswordLength, maxRatingLength, maxSizeLength, minLength, minRatingLength, minSizeLength } = require('./validationConstants');
 
 const { check } = require('express-validator');
@@ -11,7 +12,7 @@ exports.registerValidators = [
 ];
 
 exports.loginValidators = [
-    check('email', 'Uncorrect email').isEmail().isLength({ min: minLength, max: maxLength }).trim(),
+    check('email', 'Uncorrect email').isEmail().isLength({ min: minLength, max: maxEmailLength }).trim(),
     check('password', `Password must be longer than ${minLength} and shorter than ${maxPasswordLength}`).isLength({
         min: minLength,
         max: maxPasswordLength,
@@ -33,7 +34,7 @@ exports.masterValidators = [
 
 exports.orderValidators = [
     check('client_name', `Name must be longer than ${minLength} and shorter than ${maxLength}`).isLength({ min: minLength, max: maxLength }).trim(),
-    check('client_email', 'Uncorrect email').isEmail().isLength({ min: minLength, max: maxLength }).trim(),
+    check('client_email', 'Uncorrect email').isEmail().isLength({ min: minLength, max: maxEmailLength }).trim(),
     check('master', 'Master must be MongoId').isMongoId().trim(),
     check('city', 'City must be MongoId').isMongoId().trim(),
     check('size', 'Size must be Number').isFloat({ min: minSizeLength, max: maxSizeLength }),
