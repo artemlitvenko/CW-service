@@ -62,7 +62,11 @@ const OrderForm = () => {
         city_name: city.city_name,
         _id: city._id,
     }));
-    const citySelect = orderObj.map((city) => <option value={city._id}>{city.city_name}</option>);
+    const citySelect = orderObj.map((city) => (
+        <option key={city._id} value={city._id}>
+            {city.city_name}
+        </option>
+    ));
 
     let startDate = orderDate;
     let endDate = +startDate + Number(formik.values.orderSize);
@@ -86,7 +90,7 @@ const OrderForm = () => {
     );
 
     const { loaded: loadedMasters, masters } = useSelector((state) => state.orderFormReducer);
-    const mastersResultList = masters.map((master) => <OrderMaster createOrderHandler={createOrderHandler} master={master} />);
+    const mastersResultList = masters.map((master) => <OrderMaster key={master._id} createOrderHandler={createOrderHandler} master={master} />);
 
     const mastersResult = () => {
         if (loadedMasters && mastersResultList.length === 0) {
@@ -125,7 +129,7 @@ const OrderForm = () => {
                     className="input-text"
                     type="text"
                     placeholder="Your email"
-                    maxLength="30"
+                    maxLength="60"
                 />
                 <div className="subtitle-form">Select your city</div>
                 {formik.errors.orderSize && formik.touched.orderSize ? <span className="validation-text">{formik.errors.orderSize}</span> : null}
