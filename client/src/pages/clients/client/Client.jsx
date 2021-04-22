@@ -6,10 +6,13 @@ import { deleteClient } from '../../../actions/client';
 const Client = ({ client }) => {
     const dispatch = useDispatch();
 
-    const deleteClickHandler = useCallback((e) => {
-        e.stopPropagation();
-        dispatch(deleteClient(client._id));
-    }, []);
+    const deleteClickHandler = useCallback(
+        (e) => {
+            e.stopPropagation();
+            dispatch(deleteClient(client._id));
+        },
+        [dispatch],
+    );
     return (
         <div className="list-item">
             <div className="list-content">

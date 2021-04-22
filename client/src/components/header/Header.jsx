@@ -19,11 +19,15 @@ const Header = () => {
                             </NavLink>
                         </div>
                         <div className="menu-header">
-                            {isAuth && <NavLink to="/orderslist">Orders list</NavLink>}
-                            {isAuth && <NavLink to="/masterslist">Masters list</NavLink>}
-                            {isAuth && <NavLink to="/citieslist">Cities list</NavLink>}
-                            {isAuth && <NavLink to="/clientslist">Clients list</NavLink>}
-                            {isAuth && <Redirect to="/" />}
+                            {isAuth && (
+                                <>
+                                    <NavLink to="/orderslist">Orders list</NavLink>
+                                    <NavLink to="/masterslist">Masters list</NavLink>
+                                    <NavLink to="/citieslist">Cities list</NavLink>
+                                    <NavLink to="/clientslist">Clients list</NavLink>
+                                    <Redirect to="/" />
+                                </>
+                            )}
                         </div>
                         <div className="log-in">
                             {!isAuth && <NavLink to="/login">Log In</NavLink>}

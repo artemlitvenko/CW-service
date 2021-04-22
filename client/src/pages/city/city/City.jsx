@@ -7,15 +7,18 @@ import { setPopupEditDisplay } from '../../../constarts/actionCityСreaters';
 const City = ({ city, setCurrentId }) => {
     const dispatch = useDispatch();
 
-    const deleteClickHandler = useCallback((e) => {
-        e.stopPropagation();
-        dispatch(deleteCity(city._id));
-    }, []);
+    const deleteClickHandler = useCallback(
+        (e) => {
+            e.stopPropagation();
+            dispatch(deleteCity(city._id));
+        },
+        [city._id],
+    );
 
     const showPopupEditHandler = useCallback(() => {
         dispatch(setPopupEditDisplay(true));
         setCurrentId(city._id);
-    }, []);
+    }, [city._id]);
 
     return (
         <div className="list-item">

@@ -4,7 +4,7 @@ import './Footer.css';
 const Footer = () => {
     return (
         <div className="footer">
-            <div className="container">&#169; Все права защищены 2020-2021</div>
+            <div className="container">&#169; All rights reserved 2020-2021</div>
         </div>
     );
 };

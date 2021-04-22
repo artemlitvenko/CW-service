@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 const Orders = ({ setCurrentOrderId }) => {
     const ordersList = useSelector((state) => state.orderReducer.orders).map((order) => (
-        <Order order={order} setCurrentOrderId={setCurrentOrderId} />
+        <Order key={order._id} order={order} setCurrentOrderId={setCurrentOrderId} />
     ));
 
     return <div>{ordersList}</div>;

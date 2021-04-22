@@ -7,10 +7,13 @@ import { largeClockSize, mediumClockSize, smallClockSize } from '../../../consta
 const Order = ({ order }) => {
     const dispatch = useDispatch();
 
-    const deleteClickHandler = useCallback((e) => {
-        e.stopPropagation();
-        dispatch(deleteOrder(order._id));
-    }, []);
+    const deleteClickHandler = useCallback(
+        (e) => {
+            e.stopPropagation();
+            dispatch(deleteOrder(order._id));
+        },
+        [order._id],
+    );
 
     const startTime = new Date(order.start_time).toLocaleString();
     const endTime = new Date(order.end_time).toLocaleString();

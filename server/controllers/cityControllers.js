@@ -1,4 +1,6 @@
 const City = require('../models/City.js');
+const Master = require('../models/Master.js');
+const Order = require('../models/Order.js');
 const { validationResult } = require('express-validator');
 
 class CityController {
@@ -46,6 +48,19 @@ class CityController {
                 res.status(400).json({ message: 'ID не указан' });
             }
             const city = await City.findByIdAndDelete(id);
+
+            let masterWithCity = await Master.find({ city: id }).exec();
+
+            for (let i = 0; i < masterWithCity.length; i++) {
+                const masterWithCityOrders = masterWithCity[i].order;
+
+                for (let i = 0; i < masterWithCityOrders.length; i++) {
+                    const masterOrders = masterWithCityOrders[i]._id;
+                    await Order.findByIdAndDelete(masterOrders);
+                }
+                await Master.findByIdAndDelete(masterWithCity[i]._id);
+            }
+
             return res.json(city);
         } catch (e) {
             console.log(e);
