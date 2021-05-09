@@ -49,6 +49,7 @@
     ]
   },
   "devDependencies": {
-    "moment-timezone": "^0.5.33"
+    "moment-timezone": "^0.5.33",
+    "react-google-login": "^5.2.2"
   }
 }

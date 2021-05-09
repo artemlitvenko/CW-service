@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { login } from '../../../actions/user';
 import { useDispatch } from 'react-redux';
 import { longEmail, longPassword, needEmail, requiredField } from '../../../constarts/validationMessage';
+import { GoogleLogin } from 'react-google-login';
 
 const LoginForm = () => {
     const dispatch = useDispatch();
@@ -12,8 +13,8 @@ const LoginForm = () => {
     const validationSchema = useMemo(
         () =>
             Yup.object({
-                email: Yup.string().required(requiredField).email(needEmail).max(30, longEmail),
-                password: Yup.string().required(requiredField).max(30, longPassword),
+                email: Yup.string().required(requiredField).email(needEmail).max(60, longEmail),
+                password: Yup.string().required(requiredField).max(60, longPassword),
             }),
         [],
     );
@@ -31,6 +32,12 @@ const LoginForm = () => {
         }),
         [],
     );
+    const googleSuccess = (res) => {
+        console.log(res);
+    };
+    const googleFailure = () => {
+        console.log('Google Sign In was unsuccessful');
+    };
 
     return (
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
@@ -49,7 +56,7 @@ const LoginForm = () => {
                             className="input-text"
                             type="text"
                             placeholder="Your email"
-                            maxLength="30"
+                            maxLength="60"
                         />
 
                         {errors.password && touched.password ? <span className="validation-text">{errors.password}</span> : null}
@@ -61,10 +68,11 @@ const LoginForm = () => {
                             className="input-text"
                             type="password"
                             placeholder="Your password"
-                            maxLength="30"
+                            maxLength="60"
                         />
 
                         <button type="submit">Log in</button>
+                        <GoogleLogin onSuccess={googleSuccess} onFailure={googleFailure} cookiePolicy="single_host_origin" />
                     </form>
                 </div>
             )}
