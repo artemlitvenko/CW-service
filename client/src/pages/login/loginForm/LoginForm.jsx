@@ -2,7 +2,7 @@ import React, { useCallback, useMemo } from 'react';
 import './LoginForm.css';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { login } from '../../../actions/user';
+import { login, loginWithGoogle } from '../../../actions/user';
 import { useDispatch } from 'react-redux';
 import { longEmail, longPassword, needEmail, requiredField } from '../../../constarts/validationMessage';
 import { GoogleLogin } from 'react-google-login';
@@ -32,10 +32,17 @@ const LoginForm = () => {
         }),
         [],
     );
-    const googleSuccess = (res) => {
-        console.log(res);
+    const googleSuccess = async (res) => {
+        const email = res?.profileObj.email;
+        const token = res?.tokenId;
+        try {
+            dispatch(loginWithGoogle(email, token));
+        } catch (error) {
+            console.log('error', error);
+        }
     };
-    const googleFailure = () => {
+    const googleFailure = (error) => {
+        console.log(error);
         console.log('Google Sign In was unsuccessful');
     };
 
@@ -72,7 +79,12 @@ const LoginForm = () => {
                         />
 
                         <button type="submit">Log in</button>
-                        <GoogleLogin onSuccess={googleSuccess} onFailure={googleFailure} cookiePolicy="single_host_origin" />
+                        <GoogleLogin
+                            clientId="478238791618-2r99illjrhdi5gl8lrmt4l3t1kj4kebt.apps.googleusercontent.com"
+                            onSuccess={googleSuccess}
+                            onFailure={googleFailure}
+                            cookiePolicy="single_host_origin"
+                        />
                     </form>
                 </div>
             )}

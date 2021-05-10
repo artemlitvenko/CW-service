@@ -41,7 +41,26 @@ class AuthController {
             if (!isPassValid) {
                 return res.status(400).json({ message: 'Invalid password' });
             }
-            const token = jwt.sign({ id: user.id }, config.SECRET_KEY, { expiresIn: '1h' });
+            const token = jwt.sign({ id: user.id, email: user.email }, config.SECRET_KEY, { expiresIn: '1h' });
+            return res.json({
+                token,
+                user: {
+                    id: user.id,
+                    email: user.email,
+                },
+            });
+        } catch (e) {
+            console.log(e);
+            res.send({ message: 'Server error' });
+        }
+    };
+    googleLogin = async (req, res) => {
+        try {
+            const { email, token } = req.body;
+            const user = await User.findOne({ email });
+            if (!user) {
+                return res.status(400).json({ message: 'User not found' });
+            }
             return res.json({
                 token,
                 user: {
@@ -56,8 +75,8 @@ class AuthController {
     };
     authAuth = async (req, res) => {
         try {
-            const user = await User.findOne({ _id: req.user.id });
-            const token = jwt.sign({ id: user.id }, config.SECRET_KEY, { expiresIn: '1h' });
+            const user = await User.findOne({ email: req.user.email });
+            const token = jwt.sign({ email: user.email }, config.SECRET_KEY, { expiresIn: '1h' });
             return res.json({
                 token,
                 user: {
@@ -73,3 +92,20 @@ class AuthController {
 }
 
 module.exports = new AuthController();
+
+/*authAuth = async (req, res) => {
+    try {
+        const user = await User.findOne({ _id: req.user.id });
+        const token = jwt.sign({ id: user.id }, config.SECRET_KEY, { expiresIn: '1h' });
+        return res.json({
+            token,
+            user: {
+                id: user.id,
+                email: user.email,
+            },
+        });
+    } catch (e) {
+        console.log(e);
+        res.send({ message: 'Server error' });
+    }
+};*/
