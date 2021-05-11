@@ -1,11 +1,10 @@
-.container {
-    width: 1200px;
-    margin: 0 auto;
-}
 .title h1 {
     font-size: 36px;
     font-weight: 600;
     margin-bottom: 40px;
+}
+.order-form-container {
+    width: 100%;
 }
 .order-form {
     width: 500px;

@@ -21,7 +21,7 @@ const City = ({ city, setCurrentId }) => {
     }, [city._id]);
 
     return (
-        <div className="list-item">
+        <div className="cities-item">
             <div className="list-content">{city.city_name}</div>
             <div className="btn-item">
                 <button className="edit-btn" onClick={showPopupEditHandler}>

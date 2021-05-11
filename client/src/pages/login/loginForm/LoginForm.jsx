@@ -81,6 +81,7 @@ const LoginForm = () => {
                         <button type="submit">Log in</button>
                         <GoogleLogin
                             clientId="478238791618-2r99illjrhdi5gl8lrmt4l3t1kj4kebt.apps.googleusercontent.com"
+                            className="google-login"
                             onSuccess={googleSuccess}
                             onFailure={googleFailure}
                             cookiePolicy="single_host_origin"

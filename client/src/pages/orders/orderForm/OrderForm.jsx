@@ -101,73 +101,79 @@ const OrderForm = () => {
     };
 
     return (
-        <div className="order-form">
-            <div className="title">
-                <h1>Fill out the form and select the right master for you</h1>
-            </div>
-            <form onSubmit={formik.handleSubmit}>
-                {formik.errors.clientName && formik.touched.clientName ? <span className="validation-text">{formik.errors.clientName}</span> : null}
-                <input
-                    value={formik.values.clientName}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    name="clientName"
-                    className="input-text"
-                    type="text"
-                    placeholder="Your name"
-                    maxLength="30"
-                />
-
-                {formik.errors.clientEmail && formik.touched.clientEmail ? (
-                    <span className="validation-text">{formik.errors.clientEmail}</span>
-                ) : null}
-                <input
-                    value={formik.values.clientEmail}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    name="clientEmail"
-                    className="input-text"
-                    type="text"
-                    placeholder="Your email"
-                    maxLength="60"
-                />
-                <div className="subtitle-form">Select your city</div>
-                {formik.errors.orderSize && formik.touched.orderSize ? <span className="validation-text">{formik.errors.orderSize}</span> : null}
-                <select name="orderSize" value={formik.values.orderSize} onChange={formik.handleChange} onBlur={formik.handleBlur}>
-                    <option value="">Choose size of watch</option>
-                    <option value={smallClockSize}>small</option>
-                    <option value={mediumClockSize}>medium</option>
-                    <option value={largeClockSize}>large</option>
-                </select>
-                <div className="subtitle-form">Select your city</div>
-                <div className="city">
-                    {formik.errors.orderCity && formik.touched.orderCity ? <span className="validation-text">{formik.errors.orderCity}</span> : null}
-                    <select name="orderCity" value={formik.values.orderCity._id} onChange={formik.handleChange} onBlur={formik.handleBlur}>
-                        <option value="">Choose city of master</option>
-                        {citySelect}
-                    </select>
+        <div className="order-form-container">
+            <div className="order-form">
+                <div className="title">
+                    <h1>Fill out the form and select the right master for you</h1>
                 </div>
-                <div className="subtitle-form">Choose a time that is convenient for you</div>
-                <div className="datetime-picker">
-                    <DatePicker
-                        selected={orderDate}
-                        value={orderDate}
-                        onChange={(date) => setOrderDate(date)}
+                <form onSubmit={formik.handleSubmit}>
+                    {formik.errors.clientName && formik.touched.clientName ? (
+                        <span className="validation-text">{formik.errors.clientName}</span>
+                    ) : null}
+                    <input
+                        value={formik.values.clientName}
+                        onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
-                        showTimeSelect
-                        timeFormat="HH:mm"
-                        timeIntervals={60}
-                        timeCaption="time"
-                        dateFormat="MMMM d, yyyy h aa"
-                        minDate={new Date()}
-                        filterTime={filterPassedTime}
-                        name="orderDate"
+                        name="clientName"
+                        className="input-text"
+                        type="text"
+                        placeholder="Your name"
+                        maxLength="30"
                     />
-                </div>
-                <button type="submit">Find master</button>
-            </form>
-            {mastersResult()}
-            <PopupCreate />
+
+                    {formik.errors.clientEmail && formik.touched.clientEmail ? (
+                        <span className="validation-text">{formik.errors.clientEmail}</span>
+                    ) : null}
+                    <input
+                        value={formik.values.clientEmail}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        name="clientEmail"
+                        className="input-text"
+                        type="text"
+                        placeholder="Your email"
+                        maxLength="60"
+                    />
+                    <div className="subtitle-form">Select your city</div>
+                    {formik.errors.orderSize && formik.touched.orderSize ? <span className="validation-text">{formik.errors.orderSize}</span> : null}
+                    <select name="orderSize" value={formik.values.orderSize} onChange={formik.handleChange} onBlur={formik.handleBlur}>
+                        <option value="">Choose size of watch</option>
+                        <option value={smallClockSize}>small</option>
+                        <option value={mediumClockSize}>medium</option>
+                        <option value={largeClockSize}>large</option>
+                    </select>
+                    <div className="subtitle-form">Select your city</div>
+                    <div className="city">
+                        {formik.errors.orderCity && formik.touched.orderCity ? (
+                            <span className="validation-text">{formik.errors.orderCity}</span>
+                        ) : null}
+                        <select name="orderCity" value={formik.values.orderCity._id} onChange={formik.handleChange} onBlur={formik.handleBlur}>
+                            <option value="">Choose city of master</option>
+                            {citySelect}
+                        </select>
+                    </div>
+                    <div className="subtitle-form">Choose a time that is convenient for you</div>
+                    <div className="datetime-picker">
+                        <DatePicker
+                            selected={orderDate}
+                            value={orderDate}
+                            onChange={(date) => setOrderDate(date)}
+                            onBlur={formik.handleBlur}
+                            showTimeSelect
+                            timeFormat="HH:mm"
+                            timeIntervals={60}
+                            timeCaption="time"
+                            dateFormat="MMMM d, yyyy h aa"
+                            minDate={new Date()}
+                            filterTime={filterPassedTime}
+                            name="orderDate"
+                        />
+                    </div>
+                    <button type="submit">Find master</button>
+                </form>
+                {mastersResult()}
+                <PopupCreate />
+            </div>
         </div>
     );
 };
