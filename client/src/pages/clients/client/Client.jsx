@@ -14,11 +14,9 @@ const Client = ({ client }) => {
         [dispatch],
     );
     return (
-        <div className="list-item">
-            <div className="list-content">
-                <div className="list-content-item">{client.client_name}</div>
-                <div className="list-content-item">{client.client_email}</div>
-            </div>
+        <div className="clients-item">
+            <div className="list-content-item">{client.client_name}</div>
+            <div className="list-content-item">{client.client_email}</div>
             <div className="btn-item">
                 <button className="delete-btn" onClick={deleteClickHandler}>
                     Delete

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { setUser } from '../reducers/userReducer';
+import { googleLogin, setUser } from '../reducers/userReducer';
 import { API_URL } from '../config';
 
 export const registration = async (email, password) => {
@@ -20,6 +20,19 @@ export const login = (email, password) => {
                 password,
             });
             dispatch(setUser(response.data.user));
+            localStorage.setItem('token', response.data.token);
+        } catch (e) {}
+    };
+};
+
+export const loginWithGoogle = (email, token) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.post(`${API_URL}api/auth/googleLogin`, {
+                email,
+                token,
+            });
+            dispatch(googleLogin(response.data.user));
             localStorage.setItem('token', response.data.token);
         } catch (e) {}
     };

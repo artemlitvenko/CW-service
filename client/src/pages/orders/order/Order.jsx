@@ -50,11 +50,11 @@ const Order = ({ order }) => {
                 <div className="list-order-item-time">
                     <span>End:</span> {endTime}
                 </div>
-            </div>
-            <div className="btn-item">
-                <button className="delete-btn" onClick={deleteClickHandler}>
-                    Delete
-                </button>
+                <div className="btn-item">
+                    <button className="delete-btn" onClick={deleteClickHandler}>
+                        Delete
+                    </button>
+                </div>
             </div>
         </div>
     );

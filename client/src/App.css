@@ -10,6 +10,11 @@ h3 {
 h4 {
   margin: 0 0 10px;
 }
+.container {
+  width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
 .main {
   padding-top: 100px;
   padding-bottom: 100px;
@@ -38,7 +43,7 @@ select {
   border: 1px solid #D4DEE8;
 }
 .list-item {
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 400;
   padding: 12px 20px;
   margin: 12px 0 0;
@@ -156,6 +161,9 @@ select {
 .list-content {
   display: flex;
 }
-.list-content-item {
-  width: 280px;
+
+@media (max-width: 1200px) {
+  .container {
+    width: 100%;
+  }
 }

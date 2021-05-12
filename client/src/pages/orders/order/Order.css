@@ -1,12 +1,5 @@
 .list-order-content {
-  display: flex;
-}
-.list-order-item-master {
-  width: 200px;
-}
-.list-order-item-size {
-  width: 150px;
-}
-.list-order-item-time {
-  width: 240px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 2fr 2fr 2fr 3fr 3fr 1fr;
 }
