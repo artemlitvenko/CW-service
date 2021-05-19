@@ -6,7 +6,7 @@ import { largeClockSize, mediumClockSize, smallClockSize } from '../../../consta
 
 const Order = ({ order }) => {
     const dispatch = useDispatch();
-
+    debugger;
     const deleteClickHandler = useCallback(
         (e) => {
             e.stopPropagation();

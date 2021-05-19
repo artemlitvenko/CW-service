@@ -15,7 +15,7 @@ export default function orderReducer(state = defaultState, action) {
         case ADD_ORDER:
             return {
                 ...state,
-                orders: [...state.masters, action.payload],
+                orders: [...state.orders, action.payload],
             };
         case UPDATE_ORDER:
             return {

@@ -32,8 +32,6 @@ const OrderForm = () => {
             orderCity: Yup.string().required(requiredField),
         }),
         onSubmit: (values) => {
-            console.log('orderDate', orderDate);
-            //endDate = +orderDate + Number(values.orderSize);
             dispatch(getMastersForOrder(values.orderCity, orderDate, endDate));
             dispatch(setMastersLoaded(false));
         },
