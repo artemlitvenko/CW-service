@@ -32,8 +32,6 @@ const OrderForm = () => {
             orderCity: Yup.string().required(requiredField),
         }),
         onSubmit: (values) => {
-            console.log('orderDate', orderDate);
-            //endDate = +orderDate + Number(values.orderSize);
             dispatch(getMastersForOrder(values.orderCity, orderDate, endDate));
             dispatch(setMastersLoaded(false));
         },
@@ -107,12 +105,16 @@ const OrderForm = () => {
                     <h1>Fill out the form and select the right master for you</h1>
                 </div>
                 <form onSubmit={formik.handleSubmit}>
-                    {formik.errors.clientName && formik.touched.clientName ? (
-                        <span className="validation-text">{formik.errors.clientName}</span>
-                    ) : null}
+                    <div className="label-form">
+                        <label htmlFor="client-name">Your name</label>
+                        {formik.errors.clientName && formik.touched.clientName ? (
+                            <span className="validation-text">{formik.errors.clientName}</span>
+                        ) : null}
+                    </div>
                     <input
                         value={formik.values.clientName}
                         onChange={formik.handleChange}
+                        id="client-name"
                         onBlur={formik.handleBlur}
                         name="clientName"
                         className="input-text"
@@ -120,12 +122,15 @@ const OrderForm = () => {
                         placeholder="Your name"
                         maxLength="30"
                     />
-
-                    {formik.errors.clientEmail && formik.touched.clientEmail ? (
-                        <span className="validation-text">{formik.errors.clientEmail}</span>
-                    ) : null}
+                    <div className="label-form">
+                        <label htmlFor="client-email">Your email</label>
+                        {formik.errors.clientEmail && formik.touched.clientEmail ? (
+                            <span className="validation-text">{formik.errors.clientEmail}</span>
+                        ) : null}
+                    </div>
                     <input
                         value={formik.values.clientEmail}
+                        id="client-email"
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         name="clientEmail"
@@ -134,20 +139,38 @@ const OrderForm = () => {
                         placeholder="Your email"
                         maxLength="60"
                     />
-                    <div className="subtitle-form">Select your city</div>
-                    {formik.errors.orderSize && formik.touched.orderSize ? <span className="validation-text">{formik.errors.orderSize}</span> : null}
-                    <select name="orderSize" value={formik.values.orderSize} onChange={formik.handleChange} onBlur={formik.handleBlur}>
+                    <div className="label-form">
+                        <label htmlFor="size-select">Choose size of watch</label>
+                        {formik.errors.orderSize && formik.touched.orderSize ? (
+                            <span className="validation-text">{formik.errors.orderSize}</span>
+                        ) : null}
+                    </div>
+                    <select
+                        name="orderSize"
+                        id="size-select"
+                        value={formik.values.orderSize}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                    >
                         <option value="">Choose size of watch</option>
                         <option value={smallClockSize}>small</option>
                         <option value={mediumClockSize}>medium</option>
                         <option value={largeClockSize}>large</option>
                     </select>
-                    <div className="subtitle-form">Select your city</div>
                     <div className="city">
-                        {formik.errors.orderCity && formik.touched.orderCity ? (
-                            <span className="validation-text">{formik.errors.orderCity}</span>
-                        ) : null}
-                        <select name="orderCity" value={formik.values.orderCity._id} onChange={formik.handleChange} onBlur={formik.handleBlur}>
+                        <div className="label-form">
+                            <label htmlFor="city-select">Select your city</label>
+                            {formik.errors.orderCity && formik.touched.orderCity ? (
+                                <span className="validation-text">{formik.errors.orderCity}</span>
+                            ) : null}
+                        </div>
+                        <select
+                            name="orderCity"
+                            id="city-select"
+                            value={formik.values.orderCity._id}
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                        >
                             <option value="">Choose city of master</option>
                             {citySelect}
                         </select>

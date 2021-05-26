@@ -34,7 +34,15 @@
     border-radius: 3px;
     border: 1px solid #D4DEE8;
 }
-
+.label-form {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0 7px;
+}
+label {
+    font-size: 14px;
+    margin: 0 20px 0 0;
+}
 .form-radio {
     display: flex;
 }
