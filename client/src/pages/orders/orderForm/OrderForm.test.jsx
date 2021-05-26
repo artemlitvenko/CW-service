@@ -1,60 +1,127 @@
 import React from 'react';
-import { configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-configure({ adapter: new Adapter() });
-import { createOrder } from '../../../actions/order';
-import orderReducer from '../../../reducers/orderReducer';
-import { ADD_ORDER, SET_POPUP_CREATE_DISPLAY_ORDER } from '../../../constarts/actionOrderTypes';
-import OrderMaster from '../orderMaster/OrderMaster';
-import { create, act } from 'react-test-renderer';
+import '@testing-library/jest-dom/extend-expect';
+import { render, fireEvent, getByPlaceholderText, waitFor, getByLabelText } from '@testing-library/react';
+import OrderForm from './OrderForm';
+import { Provider } from 'react-redux';
+import { store } from '../../../reducers';
 
-test('Successful order creation', () => {
-    let formData = createOrder(
-        'Artem',
-        'art@gmail.com',
-        '6081471583fde44a4010eb1b',
-        '6081358e2dd14410205faf0e',
-        7200000,
-        '2021-05-15T06:00:23.377Z',
-        '2021-05-15T08:00:23.377Z',
-    );
-    let action = {
-        type: ADD_ORDER,
-        payload: formData,
-    };
-    const state = {
-        orders: [],
-    };
-    let newState = orderReducer(state, action);
-    expect(newState.orders.length).toBe(1);
-});
+describe('Required field', () => {
+    it('Input Name - should show validation on blur', async () => {
+        const { getByPlaceholderText, getByText } = render(
+            <Provider store={store}>
+                <OrderForm />
+            </Provider>,
+        );
 
-test('display popup after order creation', () => {
-    let popupOrder = true;
-    const state = {
-        popupCreateDisplay: false,
-    };
-    let action = {
-        type: SET_POPUP_CREATE_DISPLAY_ORDER,
-        payload: popupOrder,
-    };
-    let newState = orderReducer(state, action);
-    expect(newState.popupCreateDisplay).toBe(true);
-});
+        const input = getByPlaceholderText('Your name');
+        fireEvent.blur(input);
 
-test('Correct send date in props', () => {
-    let component;
-    act(() => {
-        component = create(<OrderMaster master="Artem Artemov" />);
+        await waitFor(() => {
+            expect(getByText(/required/i)).toBeInTheDocument();
+        });
     });
-    const instance = component.root;
-    expect(instance.props.master).toBe('Artem Artemov');
-});
+    it('Input Email - should show validation on blur', async () => {
+        const { getByPlaceholderText, getByText } = render(
+            <Provider store={store}>
+                <OrderForm />
+            </Provider>,
+        );
 
-/*
-test('What I will do', () => {
-    // Test data
-    // Action
-    // Expectation
+        const input = getByPlaceholderText('Your email');
+        fireEvent.blur(input);
+
+        await waitFor(() => {
+            expect(getByText(/required/i)).toBeInTheDocument();
+        });
+    });
+    it('Select size - should show validation on blur', async () => {
+        const { getByText, getByLabelText } = render(
+            <Provider store={store}>
+                <OrderForm />
+            </Provider>,
+        );
+
+        const select = getByLabelText(/watch/i);
+        fireEvent.blur(select);
+
+        await waitFor(() => {
+            expect(getByText(/required/i)).toBeInTheDocument();
+        });
+    });
+    it('Select city - should show validation on blur', async () => {
+        const { getByText, getByLabelText } = render(
+            <Provider store={store}>
+                <OrderForm />
+            </Provider>,
+        );
+
+        const select = getByLabelText(/city/i);
+        fireEvent.blur(select);
+
+        await waitFor(() => {
+            expect(getByText(/required/i)).toBeInTheDocument();
+        });
+    });
 });
-*/
+describe('Validation form', () => {
+    it('Input Name - Sorry, name is to short!', async () => {
+        const { getByPlaceholderText, getByText } = render(
+            <Provider store={store}>
+                <OrderForm />
+            </Provider>,
+        );
+
+        const input = getByPlaceholderText('Your name');
+        fireEvent.change(input, { target: { value: 'at' } });
+        fireEvent.blur(input);
+
+        await waitFor(() => {
+            expect(getByText('Sorry, name is to short!')).toBeInTheDocument();
+        });
+    });
+    it('Input Name - Sorry, name is to long!', async () => {
+        const { getByPlaceholderText, getByText } = render(
+            <Provider store={store}>
+                <OrderForm />
+            </Provider>,
+        );
+
+        const input = getByPlaceholderText('Your name');
+        fireEvent.change(input, { target: { value: 'atffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff' } });
+        fireEvent.blur(input);
+
+        await waitFor(() => {
+            expect(getByText('Sorry, name is to long!')).toBeInTheDocument();
+        });
+    });
+    it('Input Email - Needs to be an email!', async () => {
+        const { getByPlaceholderText, getByText } = render(
+            <Provider store={store}>
+                <OrderForm />
+            </Provider>,
+        );
+
+        const input = getByPlaceholderText('Your email');
+        fireEvent.change(input, { target: { value: 'atfff' } });
+        fireEvent.blur(input);
+
+        await waitFor(() => {
+            expect(getByText('Needs to be an email')).toBeInTheDocument();
+        });
+    });
+    it('Input Email - Sorry, email is to long!', async () => {
+        const { getByPlaceholderText, getByText } = render(
+            <Provider store={store}>
+                <OrderForm />
+            </Provider>,
+        );
+
+        const input = getByPlaceholderText('Your email');
+        fireEvent.change(input, { target: { value: 'atddddddddddddddddddddddddddddddddddddddddddddddddddddddddfff@gmail.com' } });
+        fireEvent.blur(input);
+
+        await waitFor(() => {
+            expect(getByText('Sorry, email is to long!')).toBeInTheDocument();
+        });
+    });
+});

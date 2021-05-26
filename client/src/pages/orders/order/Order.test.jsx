@@ -6,7 +6,7 @@ import orderReducer from '../../../reducers/orderReducer';
 configure({ adapter: new Adapter() });
 
 describe('Correct work delete action', () => {
-    test('after deleting length of array should be decremented', () => {
+    it('after deleting length of array should be decremented', () => {
         let orderId = '6081476483fde44a4010eb23';
         const state = {
             orders: [{ _id: '6081476483fde44a4010eb23' }, { _id: '6081476483fde44a4010eb85' }],
