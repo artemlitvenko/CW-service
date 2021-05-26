@@ -5,13 +5,17 @@ import OrderForm from './OrderForm';
 import { Provider } from 'react-redux';
 import { store } from '../../../reducers';
 
+let wrapper;
+beforeEach(() => {
+    wrapper = render(
+        <Provider store={store}>
+            <OrderForm />
+        </Provider>,
+    );
+});
 describe('Required field', () => {
     it('Input Name - should show validation on blur', async () => {
-        const { getByPlaceholderText, getByText } = render(
-            <Provider store={store}>
-                <OrderForm />
-            </Provider>,
-        );
+        const { getByPlaceholderText, getByText } = wrapper;
 
         const input = getByPlaceholderText('Your name');
         fireEvent.blur(input);
@@ -21,11 +25,7 @@ describe('Required field', () => {
         });
     });
     it('Input Email - should show validation on blur', async () => {
-        const { getByPlaceholderText, getByText } = render(
-            <Provider store={store}>
-                <OrderForm />
-            </Provider>,
-        );
+        const { getByPlaceholderText, getByText } = wrapper;
 
         const input = getByPlaceholderText('Your email');
         fireEvent.blur(input);
@@ -35,11 +35,7 @@ describe('Required field', () => {
         });
     });
     it('Select size - should show validation on blur', async () => {
-        const { getByText, getByLabelText } = render(
-            <Provider store={store}>
-                <OrderForm />
-            </Provider>,
-        );
+        const { getByText, getByLabelText } = wrapper;
 
         const select = getByLabelText(/watch/i);
         fireEvent.blur(select);
@@ -49,11 +45,7 @@ describe('Required field', () => {
         });
     });
     it('Select city - should show validation on blur', async () => {
-        const { getByText, getByLabelText } = render(
-            <Provider store={store}>
-                <OrderForm />
-            </Provider>,
-        );
+        const { getByText, getByLabelText } = wrapper;
 
         const select = getByLabelText(/city/i);
         fireEvent.blur(select);
@@ -65,11 +57,7 @@ describe('Required field', () => {
 });
 describe('Validation form', () => {
     it('Input Name - Sorry, name is to short!', async () => {
-        const { getByPlaceholderText, getByText } = render(
-            <Provider store={store}>
-                <OrderForm />
-            </Provider>,
-        );
+        const { getByPlaceholderText, getByText } = wrapper;
 
         const input = getByPlaceholderText('Your name');
         fireEvent.change(input, { target: { value: 'at' } });
@@ -80,11 +68,7 @@ describe('Validation form', () => {
         });
     });
     it('Input Name - Sorry, name is to long!', async () => {
-        const { getByPlaceholderText, getByText } = render(
-            <Provider store={store}>
-                <OrderForm />
-            </Provider>,
-        );
+        const { getByPlaceholderText, getByText } = wrapper;
 
         const input = getByPlaceholderText('Your name');
         fireEvent.change(input, { target: { value: 'atffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff' } });
@@ -95,11 +79,7 @@ describe('Validation form', () => {
         });
     });
     it('Input Email - Needs to be an email!', async () => {
-        const { getByPlaceholderText, getByText } = render(
-            <Provider store={store}>
-                <OrderForm />
-            </Provider>,
-        );
+        const { getByPlaceholderText, getByText } = wrapper;
 
         const input = getByPlaceholderText('Your email');
         fireEvent.change(input, { target: { value: 'atfff' } });
@@ -110,11 +90,7 @@ describe('Validation form', () => {
         });
     });
     it('Input Email - Sorry, email is to long!', async () => {
-        const { getByPlaceholderText, getByText } = render(
-            <Provider store={store}>
-                <OrderForm />
-            </Provider>,
-        );
+        const { getByPlaceholderText, getByText } = wrapper;
 
         const input = getByPlaceholderText('Your email');
         fireEvent.change(input, { target: { value: 'atddddddddddddddddddddddddddddddddddddddddddddddddddddddddfff@gmail.com' } });
