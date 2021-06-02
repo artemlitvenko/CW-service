@@ -12,9 +12,9 @@ class MasterController {
             const { name, rating, city } = req.body;
             const master = await Master.create({ name, rating, city });
             const returnMaster = await Master.findById(master._id).populate({ path: 'city', select: 'city_name' });
-            res.json(returnMaster);
+            return res.json(returnMaster);
         } catch (e) {
-            console.log(e);
+            res.status(500).json(e);
         }
     };
 
@@ -28,6 +28,10 @@ class MasterController {
     };
 
     updateMaster = async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ message: 'Uncorrect request', errors });
+        }
         try {
             const master = req.body;
             const { id } = req.params;

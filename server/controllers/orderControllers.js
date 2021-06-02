@@ -71,7 +71,6 @@ class OrderController {
         }
         try {
             const { client_name, client_email, master, city, size, start_time, end_time } = req.body;
-            console.log(req.body);
             let clientCreate = await Client.findOne({ client_email: client_email }).exec();
             if (!clientCreate) {
                 clientCreate = await Client.create({ client_name, client_email });

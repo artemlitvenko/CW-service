@@ -5,7 +5,7 @@ const { masterValidators } = require('../service/validators');
 
 router.post('', masterValidators, masterController.postMaster);
 router.get('', masterController.getMaster);
-router.put('/:id', masterController.updateMaster);
+router.put('/:id', masterValidators, masterController.updateMaster);
 router.delete('/:id', masterController.deleteMaster);
 
 module.exports = router;
