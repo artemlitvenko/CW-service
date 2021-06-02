@@ -1,9 +1,3 @@
-/*
-Покрыть тестами сущность мастер
-(проверить каждый эндпоинт, позитивные и негативные случаи по причине валидации и тп, по 3-5 тестов на эндпоинт)
-и эндпоинт обработки заказа от пользователя
-(один позитивный и негативные, всего 5-7 кейсов)
-*/
 const app = require('../app');
 const config = require('../config');
 const supertest = require('supertest');
@@ -17,10 +11,6 @@ describe('testing endpoint of masters', () => {
             useUnifiedTopology: true,
         });
     });
-
-    /*afterAll((done) => {
-        mongoose.disconnect(done);
-    });*/
     describe('Post', function () {
         test('Create new master with correct date', async () => {
             const response = await request.post('/api/master').send({ name: 'Artem', rating: 5, city: '6081470183fde44a4010eb19' });
