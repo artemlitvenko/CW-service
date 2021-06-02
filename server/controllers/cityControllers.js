@@ -7,7 +7,7 @@ class CityController {
     postCity = async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ message: 'Uncorrect request', errors });
+            return res.status(400).json({ message: 'Incorrect request', errors });
         }
         try {
             const { city_name } = req.body;
@@ -32,7 +32,7 @@ class CityController {
             const city = req.body;
             const { id } = req.params;
             if (!id) {
-                res.status(400).json({ message: 'ID не указан' });
+                res.status(400).json({ message: 'ID not found' });
             }
             const updatedCity = await City.findByIdAndUpdate(id, city, { new: true });
             return res.json(updatedCity);
@@ -45,7 +45,7 @@ class CityController {
         try {
             const { id } = req.params;
             if (!id) {
-                res.status(400).json({ message: 'ID не указан' });
+                res.status(400).json({ message: 'ID not found' });
             }
             const city = await City.findByIdAndDelete(id);
 

@@ -17,7 +17,7 @@ class ClientController {
             const client = req.body;
             const { id } = req.params;
             if (!id) {
-                res.status(400).json({ message: 'ID не указан' });
+                res.status(400).json({ message: 'ID not found' });
             }
             const updatedClient = await Client.findByIdAndUpdate(id, client, { new: true });
             return res.json(updatedClient);
@@ -29,7 +29,7 @@ class ClientController {
         try {
             const { id } = req.params;
             if (!id) {
-                res.status(400).json({ message: 'ID не указан' });
+                res.status(400).json({ message: 'ID not found' });
             }
             const client = await Client.findByIdAndDelete(id);
 

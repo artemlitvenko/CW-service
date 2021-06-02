@@ -67,7 +67,7 @@ class OrderController {
     postOrder = async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ message: 'Uncorrect request', errors });
+            return res.status(400).json({ message: 'Incorrect request', errors });
         }
         try {
             const { client_name, client_email, master, city, size, start_time, end_time } = req.body;
@@ -119,7 +119,7 @@ class OrderController {
             const order = req.body;
             const { id } = req.params;
             if (!id) {
-                res.status(400).json({ message: 'ID не указан' });
+                res.status(400).json({ message: 'ID not found' });
             }
             const updatedOrder = await Order.findByIdAndUpdate(id, order, { new: true });
             return res.json(updatedOrder);
@@ -132,7 +132,7 @@ class OrderController {
         try {
             const { id } = req.params;
             if (!id) {
-                res.status(400).json({ message: 'ID не указан' });
+                res.status(400).json({ message: 'ID not found' });
             }
 
             const order = await Order.findByIdAndDelete(id);
