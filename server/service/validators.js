@@ -30,7 +30,9 @@ exports.masterValidators = [
         max: maxRatingLength,
     }),
     check('city', 'City must be MongoId').isMongoId().trim(),
+    check('id', 'Id must be MongoId').isMongoId().trim(),
 ];
+exports.masterDeleteValidators = [check('id', 'Id must be MongoId').isMongoId().trim()];
 
 exports.orderValidators = [
     check('client_name', `Name must be longer than ${minLength} and shorter than ${maxLength}`).isLength({ min: minLength, max: maxLength }).trim(),

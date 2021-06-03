@@ -9,7 +9,7 @@ class AuthController {
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                return res.status(400).json({ message: 'Uncorrect request', errors });
+                return res.status(400).json({ message: 'Incorrect request', errors });
             }
             const { email, password } = req.body;
             const candidate = await User.findOne({ email });
@@ -29,7 +29,7 @@ class AuthController {
     loginAuth = async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ message: 'Uncorrect request', errors });
+            return res.status(400).json({ message: 'Incorrect request', errors });
         }
         try {
             const { email, password } = req.body;
