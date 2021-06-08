@@ -12,6 +12,7 @@ import Registration from './pages/registration/Registration';
 import Login from './pages/login/login/Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { auth } from './actions/user';
+import Dashboard from './pages/dashboard/dashboard/Dashboard';
 
 const App = () => {
     const isAuth = useSelector((state) => state.user.isAuth);
@@ -37,6 +38,7 @@ const App = () => {
                     {isAuth && (
                         <Switch>
                             <Route exact path="/" render={() => <OrderForm />} />
+                            <Route exact path="/dashboard" render={() => <Dashboard />} />
                             <Route exact path="/citieslist" render={() => <CitiesList />} />
                             <Route exact path="/masterslist" render={() => <MastersList />} />
                             <Route exact path="/orderslist" render={() => <OrdersList />} />

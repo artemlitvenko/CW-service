@@ -1,8 +1,16 @@
-import { ADD_ORDER, REMOVE_ORDER, SET_ORDER, SET_POPUP_CREATE_DISPLAY_ORDER, UPDATE_ORDER } from '../constarts/actionOrderTypes';
+import {
+    ADD_ORDER,
+    REMOVE_ORDER,
+    SET_ORDER,
+    SET_POPUP_CREATE_DISPLAY_ORDER,
+    UPDATE_ORDER,
+    POPUP_CALENDAR_DISPLAY_ORDER,
+} from '../constarts/actionOrderTypes';
 
 const defaultState = {
     orders: [],
     popupCreateDisplay: false,
+    popupCalendarDisplay: false,
 };
 
 export default function orderReducer(state = defaultState, action) {
@@ -31,6 +39,11 @@ export default function orderReducer(state = defaultState, action) {
             return {
                 ...state,
                 popupCreateDisplay: action.payload,
+            };
+        case POPUP_CALENDAR_DISPLAY_ORDER:
+            return {
+                ...state,
+                popupCalendarDisplay: action.payload,
             };
         default:
             return state;

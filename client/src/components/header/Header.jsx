@@ -21,6 +21,7 @@ const Header = () => {
                         <div className="menu-header">
                             {isAuth && (
                                 <>
+                                    <NavLink to="/dashboard">Dashboard</NavLink>
                                     <NavLink to="/orderslist">Orders list</NavLink>
                                     <NavLink to="/masterslist">Masters list</NavLink>
                                     <NavLink to="/citieslist">Cities list</NavLink>

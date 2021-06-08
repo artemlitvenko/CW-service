@@ -1,0 +1,21 @@
+.calendar-header-container {
+  display: flex;
+  justify-content: space-between;
+}
+.calendar-month {
+  display: flex;
+  font-size: 36px;
+}
+.month {
+  margin: 0 10px 0 0;
+}
+.calendar-control {
+  width: 150px;
+  display: flex;
+}
+.calendar-control button {
+  background: #5C4EBD;
+  margin: 20px 3px;
+  min-height: auto;
+  padding: 5px 10px;
+}

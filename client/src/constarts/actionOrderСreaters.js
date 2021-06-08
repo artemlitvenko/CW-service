@@ -1,5 +1,6 @@
 import {
     ADD_ORDER,
+    POPUP_CALENDAR_DISPLAY_ORDER,
     REMOVE_ORDER,
     SET_MASTER_FOR_CITY,
     SET_MASTER_LOADED,
@@ -35,5 +36,9 @@ export const removeOrder = (orderId) => ({
 });
 export const setPopupCreateDisplayOrder = (display) => ({
     type: SET_POPUP_CREATE_DISPLAY_ORDER,
+    payload: display,
+});
+export const popupCalendarDisplayOrder = (display) => ({
+    type: POPUP_CALENDAR_DISPLAY_ORDER,
     payload: display,
 });
