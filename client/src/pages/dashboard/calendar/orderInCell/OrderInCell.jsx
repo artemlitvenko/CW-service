@@ -6,13 +6,11 @@ import { useDispatch } from 'react-redux';
 const OrderInCell = ({ order, orderInDay, dayNumber, setCurrentOrderId }) => {
     const dispatch = useDispatch();
     const showPopupOrderHandler = useCallback(() => {
-        dispatch(popupCalendarDisplayOrder(true));
-        setCurrentOrderId(order._id);
-    }, [dispatch, setCurrentOrderId]);
-
-    console.log('order', order);
-    console.log('order._id', order._id);
-    console.log('setCurrentOrderId', setCurrentOrderId);
+        if (order._id) {
+            dispatch(popupCalendarDisplayOrder(true));
+            setCurrentOrderId(order._id);
+        }
+    }, [dispatch, order._id, setCurrentOrderId]);
 
     return (
         <div>
