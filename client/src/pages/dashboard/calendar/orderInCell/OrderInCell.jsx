@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import moment from 'moment';
 import './OrderInCell.css';
 import { popupCalendarDisplayOrder } from '../../../../constarts/actionOrderСreaters';
 import { useDispatch } from 'react-redux';
@@ -17,7 +18,7 @@ const OrderInCell = ({ order, orderInDay, dayNumber, setCurrentOrderId }) => {
             {orderInDay(dayNumber, order.start_time) ? (
                 <div className="order-cell" onClick={showPopupOrderHandler}>
                     <div>{order.master.name}</div>
-                    <div>{order.start_time.slice(11, 16)}</div>
+                    <div>{moment(order.start_time).format('h:mm')}</div>
                 </div>
             ) : (
                 <div></div>

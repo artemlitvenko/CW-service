@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './Calendar.css';
 import moment from 'moment';
 import CalendarHeader from '../calendarHeader/CalendarHeader';
@@ -12,21 +12,27 @@ const Calendar = () => {
     useEffect(() => {
         dispatch(getOrder());
     }, []);
-
-    moment.updateLocale('en', { week: { dow: 1 } });
+    useEffect(() => {
+        moment.updateLocale('en', { week: { dow: 1 } });
+    }, [moment.updateLocale('en', { week: { dow: 1 } })]);
 
     const [today, setToday] = useState(moment());
-    const startDay = today.clone().startOf('month').startOf('week');
 
-    const prevHandler = () => {
-        setToday((prev) => prev.clone().subtract(1, 'month'));
-    };
-    const todayHandler = () => {
+    const startDay = useMemo(() => {
+        return today.clone().startOf('month').startOf('week');
+    }, [today]);
+
+    const todayHandler = useCallback(() => {
         setToday(moment());
-    };
-    const nextHandler = () => {
+    }, [setToday]);
+
+    const nextHandler = useCallback(() => {
         setToday((next) => next.clone().add(1, 'month'));
-    };
+    }, [setToday]);
+
+    const prevHandler = useCallback(() => {
+        setToday((prev) => prev.clone().subtract(1, 'month'));
+    }, [setToday]);
 
     return (
         <div className="calendar">
