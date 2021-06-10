@@ -1,0 +1,15 @@
+
+.grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-gap: 1px;
+  background-color: #EFEFEF;
+  border: 1px solid #EFEFEF;
+}
+.day-name {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 5px;
+  font-weight: bold;
+}
