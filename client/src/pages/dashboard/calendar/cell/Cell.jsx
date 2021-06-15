@@ -20,7 +20,7 @@ const Cell = ({ currentMonth, currentDay, dayNumber, orderMonth, orderInDay, set
         <div className={dayType}>
             <div className={thisMonth}>{dayNumber.format('D')}</div>
             {orderMonth.map((order) => (
-                <OrderInCell order={order} orderInDay={orderInDay} dayNumber={dayNumber} setCurrentOrderId={setCurrentOrderId} />
+                <OrderInCell key={order._id} order={order} orderInDay={orderInDay} dayNumber={dayNumber} setCurrentOrderId={setCurrentOrderId} />
             ))}
         </div>
     );

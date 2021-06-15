@@ -33,6 +33,7 @@ const OrderForm = () => {
         }),
         onSubmit: (values) => {
             dispatch(getMastersForOrder(values.orderCity, orderDate, endDate));
+            console.log('Order Form >>> values.orderCity, orderDate, endDate', values.orderCity, orderDate, endDate);
             dispatch(setMastersLoaded(false));
         },
     });
@@ -140,7 +141,7 @@ const OrderForm = () => {
                         maxLength="60"
                     />
                     <div className="label-form">
-                        <label htmlFor="size-select">Choose size of watch</label>
+                        <label htmlFor="size-select">Size</label>
                         {formik.errors.orderSize && formik.touched.orderSize ? (
                             <span className="validation-text">{formik.errors.orderSize}</span>
                         ) : null}
@@ -159,7 +160,7 @@ const OrderForm = () => {
                     </select>
                     <div className="city">
                         <div className="label-form">
-                            <label htmlFor="city-select">Select your city</label>
+                            <label htmlFor="city-select">City</label>
                             {formik.errors.orderCity && formik.touched.orderCity ? (
                                 <span className="validation-text">{formik.errors.orderCity}</span>
                             ) : null}

@@ -1,0 +1,23 @@
+.popup-edit-order {
+    background: rgba(0,0,0,0.2);
+}
+.order-edit-form input {
+    margin: 0;
+}
+.order-edit-form select {
+    margin: 0;
+}
+.order-edit-form .subtitle-form {
+    font-size: 14px;
+    font-weight: 400;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+.order-edit-form .react-datepicker__input-container input {
+    width: 360px;
+    margin-bottom: 10px;
+}
+.master-name {
+    font-size: 16px;
+    margin: 10px 0 20px;
+}

@@ -107,7 +107,7 @@ class OrderController {
 
     getOrder = async (req, res) => {
         try {
-            const order = await Order.find().populate({ path: 'master', select: 'name' }).populate({ path: 'client', select: 'client_name' });
+            const order = await Order.find().populate({ path: 'master', select: 'name' }).populate({ path: 'client' });
             return res.json(order);
         } catch (e) {
             res.status(500).json(e);
@@ -116,15 +116,31 @@ class OrderController {
 
     updateOrder = async (req, res) => {
         try {
-            const order = req.body;
+            const { master, client_name, client_email, city, size, start_time, end_time } = req.body;
             const { id } = req.params;
             if (!id) {
                 res.status(400).json({ message: 'ID not found' });
             }
-            const updatedOrder = await Order.findByIdAndUpdate(id, order, { new: true });
+            let order = await Order.findById(id);
+
+            let clientId = order.client._id;
+            let clientData = { client_name: client_name, client_email: client_email };
+            await Client.findByIdAndUpdate(clientId, clientData, { new: true });
+
+            let oldMasterId = order.master._id;
+            if (!oldMasterId == master) {
+                let editOldMaster = await Master.findById(oldMasterId);
+                let masterAllOrder = editOldMaster.order.filter((deleteId) => deleteId != id);
+                let addOrderIdToMaster = { order: masterAllOrder };
+                await Master.findByIdAndUpdate(oldMasterId, addOrderIdToMaster, { new: true });
+            }
+
+            let orderData = { start_time: start_time, end_time: end_time, size: size, master: master, city: city };
+            const updatedOrder = await Order.findByIdAndUpdate(id, orderData, { new: true });
             return res.json(updatedOrder);
         } catch (e) {
             res.status(500).json(e);
+            console.log(e);
         }
     };
 

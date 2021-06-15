@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import './PopupOrder.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { popupCalendarDisplayOrder } from '../../../../constarts/actionOrderСreaters';
+import { popupCalendarDisplayOrder, popupCalendarEditDisplayOrder } from '../../../../constarts/actionOrderСreaters';
 import { largeClockSize, mediumClockSize, smallClockSize } from '../../../../constarts/clockSize';
 import { deleteOrder } from '../../../../actions/order';
 
@@ -24,6 +24,11 @@ const PopupOrder = ({ currentOrderId }) => {
     const popupOrderClose = useCallback(() => {
         dispatch(popupCalendarDisplayOrder(false));
     }, [dispatch]);
+
+    const showPopupEditOrderHandler = () => {
+        dispatch(popupCalendarDisplayOrder(false));
+        dispatch(popupCalendarEditDisplayOrder(true));
+    };
 
     if (!popupOrderDisplay) {
         return null;
@@ -73,7 +78,10 @@ const PopupOrder = ({ currentOrderId }) => {
                     </div>
                 </div>
                 <div className="order-info-btn">
-                    <button className="delete-btn" onClick={deleteClickHandler}>
+                    <button className="order-btn edit-btn" onClick={showPopupEditOrderHandler}>
+                        Edit
+                    </button>
+                    <button className="order-btn delete-btn" onClick={deleteClickHandler}>
                         Delete
                     </button>
                 </div>
