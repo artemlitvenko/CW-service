@@ -12,6 +12,7 @@ import { largeClockSize, mediumClockSize, smallClockSize } from '../../../consta
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { longEmail, longValue, needEmail, requiredField, shortValue } from '../../../constarts/validationMessage';
+import { maxEmailLength, maxLength, minLength } from '../../../constarts/validationValue';
 
 const OrderForm = () => {
     const dispatch = useDispatch();
@@ -26,8 +27,8 @@ const OrderForm = () => {
             endDate: '',
         },
         validationSchema: Yup.object({
-            clientName: Yup.string().required(requiredField).min(3, shortValue).max(30, longValue),
-            clientEmail: Yup.string().required(requiredField).email(needEmail).max(60, longEmail),
+            clientName: Yup.string().required(requiredField).min(minLength, shortValue).max(maxLength, longValue),
+            clientEmail: Yup.string().required(requiredField).email(needEmail).max(maxEmailLength, longEmail),
             orderSize: Yup.string().required(requiredField),
             orderCity: Yup.string().required(requiredField),
         }),

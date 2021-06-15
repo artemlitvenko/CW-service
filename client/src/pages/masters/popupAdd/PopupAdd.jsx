@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { longValue, requiredField, shortValue } from '../../../constarts/validationMessage';
 import { ratings } from '../../../constarts/ratings';
+import { maxLength, minLength } from '../../../constarts/validationValue';
 
 const PopupAdd = () => {
     const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const PopupAdd = () => {
     const validationSchema = useMemo(
         () =>
             Yup.object({
-                masterName: Yup.string().required(requiredField).min(3, shortValue).max(30, longValue),
+                masterName: Yup.string().required(requiredField).min(minLength, shortValue).max(maxLength, longValue),
                 masterRating: Yup.string().required(requiredField),
                 masterCity: Yup.string().required(requiredField),
             }),

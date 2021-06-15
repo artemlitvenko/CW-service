@@ -116,7 +116,8 @@ class OrderController {
 
     updateOrder = async (req, res) => {
         try {
-            const { master, client_name, client_email, city, size, start_time, end_time } = req.body;
+            const { master, client_name, client_email, city, size, start_time, end_time } = req.body.body;
+            console.log('req.body.body', req.body.body);
             const { id } = req.params;
             if (!id) {
                 res.status(400).json({ message: 'ID not found' });
