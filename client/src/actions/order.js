@@ -38,10 +38,14 @@ export const getOrder = () => {
     };
 };
 
-export const updateOrder = (_id) => {
+export const updateOrder = (_id, body) => {
     return async (dispatch) => {
+        debugger;
         try {
-            const response = await axios.put(`${API_URL}api/order/${_id}`, { _id });
+            const response = await axios.put(`${API_URL}api/order/${_id}`, {
+                _id,
+                body,
+            });
             dispatch(updateOrders(response.data));
         } catch (e) {
             console.log('Update master is crash', e.message);

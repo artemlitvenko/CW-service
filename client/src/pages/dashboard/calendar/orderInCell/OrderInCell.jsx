@@ -18,7 +18,7 @@ const OrderInCell = ({ order, orderInDay, dayNumber, setCurrentOrderId }) => {
             {orderInDay(dayNumber, order.start_time) ? (
                 <div className="order-cell" onClick={showPopupOrderHandler}>
                     <div>{order.master.name}</div>
-                    <div>{moment(order.start_time).format('h:mm')}</div>
+                    <div>{moment(order.start_time).format('h:mm A')}</div>
                 </div>
             ) : (
                 <div></div>

@@ -16,3 +16,10 @@
   display: flex;
   justify-content: center;
 }
+.order-info-btn .edit-btn {
+  width: 50%;
+  margin-right: 10px;
+}
+.order-info-btn .delete-btn {
+  width: 50%;
+}

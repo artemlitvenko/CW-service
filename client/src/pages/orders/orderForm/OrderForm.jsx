@@ -12,6 +12,7 @@ import { largeClockSize, mediumClockSize, smallClockSize } from '../../../consta
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { longEmail, longValue, needEmail, requiredField, shortValue } from '../../../constarts/validationMessage';
+import { maxEmailLength, maxLength, minLength } from '../../../constarts/validationValue';
 
 const OrderForm = () => {
     const dispatch = useDispatch();
@@ -26,13 +27,14 @@ const OrderForm = () => {
             endDate: '',
         },
         validationSchema: Yup.object({
-            clientName: Yup.string().required(requiredField).min(3, shortValue).max(30, longValue),
-            clientEmail: Yup.string().required(requiredField).email(needEmail).max(60, longEmail),
+            clientName: Yup.string().required(requiredField).min(minLength, shortValue).max(maxLength, longValue),
+            clientEmail: Yup.string().required(requiredField).email(needEmail).max(maxEmailLength, longEmail),
             orderSize: Yup.string().required(requiredField),
             orderCity: Yup.string().required(requiredField),
         }),
         onSubmit: (values) => {
             dispatch(getMastersForOrder(values.orderCity, orderDate, endDate));
+            console.log('Order Form >>> values.orderCity, orderDate, endDate', values.orderCity, orderDate, endDate);
             dispatch(setMastersLoaded(false));
         },
     });
@@ -107,9 +109,7 @@ const OrderForm = () => {
                 <form onSubmit={formik.handleSubmit}>
                     <div className="label-form">
                         <label htmlFor="client-name">Your name</label>
-                        {formik.errors.clientName && formik.touched.clientName ? (
-                            <span className="validation-text">{formik.errors.clientName}</span>
-                        ) : null}
+                        {formik.errors.clientName && formik.touched.clientName && <span className="validation-text">{formik.errors.clientName}</span>}
                     </div>
                     <input
                         value={formik.values.clientName}
@@ -124,9 +124,9 @@ const OrderForm = () => {
                     />
                     <div className="label-form">
                         <label htmlFor="client-email">Your email</label>
-                        {formik.errors.clientEmail && formik.touched.clientEmail ? (
+                        {formik.errors.clientEmail && formik.touched.clientEmail && (
                             <span className="validation-text">{formik.errors.clientEmail}</span>
-                        ) : null}
+                        )}
                     </div>
                     <input
                         value={formik.values.clientEmail}
@@ -140,10 +140,8 @@ const OrderForm = () => {
                         maxLength="60"
                     />
                     <div className="label-form">
-                        <label htmlFor="size-select">Choose size of watch</label>
-                        {formik.errors.orderSize && formik.touched.orderSize ? (
-                            <span className="validation-text">{formik.errors.orderSize}</span>
-                        ) : null}
+                        <label htmlFor="size-select">Size</label>
+                        {formik.errors.orderSize && formik.touched.orderSize && <span className="validation-text">{formik.errors.orderSize}</span>}
                     </div>
                     <select
                         name="orderSize"
@@ -159,10 +157,10 @@ const OrderForm = () => {
                     </select>
                     <div className="city">
                         <div className="label-form">
-                            <label htmlFor="city-select">Select your city</label>
-                            {formik.errors.orderCity && formik.touched.orderCity ? (
+                            <label htmlFor="city-select">City</label>
+                            {formik.errors.orderCity && formik.touched.orderCity && (
                                 <span className="validation-text">{formik.errors.orderCity}</span>
-                            ) : null}
+                            )}
                         </div>
                         <select
                             name="orderCity"

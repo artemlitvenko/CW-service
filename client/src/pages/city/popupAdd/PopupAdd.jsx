@@ -6,6 +6,7 @@ import { setPopupAddDisplay } from '../../../constarts/actionCityСreaters';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { longValue, requiredField } from '../../../constarts/validationMessage';
+import { maxLength } from '../../../constarts/validationValue';
 
 const PopupAdd = () => {
     const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const PopupAdd = () => {
     const validationSchema = useMemo(
         () =>
             Yup.object({
-                cityName: Yup.string().required(requiredField).max(30, longValue),
+                cityName: Yup.string().required(requiredField).max(maxLength, longValue),
             }),
         [],
     );

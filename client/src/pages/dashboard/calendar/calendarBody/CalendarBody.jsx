@@ -5,6 +5,8 @@ import { daysOfGrid, nameDay } from '../../../../constarts/calendarConstant';
 import Cell from '../cell/Cell';
 import { useSelector } from 'react-redux';
 import PopupOrder from '../popupOrder/PopupOrder';
+import PopupEditOrder from '../popupEditOrder/PopupEditOrder';
+import PopupAfterEdit from '../popupAfterEdit/PopupAfterEdit';
 
 const CalendarBody = ({ startDay, today }) => {
     const [currentOrderId, setCurrentOrderId] = useState(null);
@@ -60,6 +62,8 @@ const CalendarBody = ({ startDay, today }) => {
             <div className="day-name">{dayName}</div>
             <div className="grid-wrapper">{calendarView}</div>
             <PopupOrder currentOrderId={currentOrderId} />
+            <PopupEditOrder currentOrderId={currentOrderId} />
+            <PopupAfterEdit />
         </div>
     );
 };
