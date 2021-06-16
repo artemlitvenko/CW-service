@@ -34,12 +34,13 @@ const PopupEditOrder = ({ currentOrderId }) => {
         orderCity: '',
         orderDate: '',
     };
+
     const orderEditData = {
-        clientName: orderEdit.client.client_name,
-        clientEmail: orderEdit.client.client_email,
-        orderSize: orderEdit.size,
-        orderCity: orderEdit.city,
-        orderDate: new Date(orderEdit.start_time),
+        clientName: orderEdit?.client.client_name,
+        clientEmail: orderEdit?.client.client_email,
+        orderSize: orderEdit?.size,
+        orderCity: orderEdit?.city,
+        orderDate: new Date(orderEdit?.start_time),
     };
 
     const initialData = orderEdit ? orderEditData : defaultData;
@@ -133,10 +134,8 @@ const PopupEditOrder = ({ currentOrderId }) => {
                     <form onSubmit={formik.handleSubmit}>
                         <div className="label-form">
                             <label htmlFor="client-name">Your name</label>
-                            {formik.errors.clientName && formik.touched.clientName ? (
+                            {formik.errors.clientName && formik.touched.clientName && (
                                 <span className="validation-text">{formik.errors.clientName}</span>
-                            ) : (
-                                ''
                             )}
                         </div>
                         <input
@@ -152,10 +151,8 @@ const PopupEditOrder = ({ currentOrderId }) => {
                         />
                         <div className="label-form">
                             <label htmlFor="client-email">Your email</label>
-                            {formik.errors.clientEmail && formik.touched.clientEmail ? (
+                            {formik.errors.clientEmail && formik.touched.clientEmail && (
                                 <span className="validation-text">{formik.errors.clientEmail}</span>
-                            ) : (
-                                ''
                             )}
                         </div>
                         <input
@@ -171,10 +168,8 @@ const PopupEditOrder = ({ currentOrderId }) => {
                         />
                         <div className="label-form">
                             <label htmlFor="size-select">Choose size of watch</label>
-                            {formik.errors.orderSize && formik.touched.orderSize ? (
+                            {formik.errors.orderSize && formik.touched.orderSize && (
                                 <span className="validation-text">{formik.errors.orderSize}</span>
-                            ) : (
-                                ''
                             )}
                         </div>
                         <select
@@ -192,10 +187,8 @@ const PopupEditOrder = ({ currentOrderId }) => {
                         <div className="city">
                             <div className="label-form">
                                 <label htmlFor="city-select">Select your city</label>
-                                {formik.errors.orderCity && formik.touched.orderCity ? (
+                                {formik.errors.orderCity && formik.touched.orderCity && (
                                     <span className="validation-text">{formik.errors.orderCity}</span>
-                                ) : (
-                                    ''
                                 )}
                             </div>
                             <select

@@ -109,9 +109,7 @@ const OrderForm = () => {
                 <form onSubmit={formik.handleSubmit}>
                     <div className="label-form">
                         <label htmlFor="client-name">Your name</label>
-                        {formik.errors.clientName && formik.touched.clientName ? (
-                            <span className="validation-text">{formik.errors.clientName}</span>
-                        ) : null}
+                        {formik.errors.clientName && formik.touched.clientName && <span className="validation-text">{formik.errors.clientName}</span>}
                     </div>
                     <input
                         value={formik.values.clientName}
@@ -126,9 +124,9 @@ const OrderForm = () => {
                     />
                     <div className="label-form">
                         <label htmlFor="client-email">Your email</label>
-                        {formik.errors.clientEmail && formik.touched.clientEmail ? (
+                        {formik.errors.clientEmail && formik.touched.clientEmail && (
                             <span className="validation-text">{formik.errors.clientEmail}</span>
-                        ) : null}
+                        )}
                     </div>
                     <input
                         value={formik.values.clientEmail}
@@ -143,9 +141,7 @@ const OrderForm = () => {
                     />
                     <div className="label-form">
                         <label htmlFor="size-select">Size</label>
-                        {formik.errors.orderSize && formik.touched.orderSize ? (
-                            <span className="validation-text">{formik.errors.orderSize}</span>
-                        ) : null}
+                        {formik.errors.orderSize && formik.touched.orderSize && <span className="validation-text">{formik.errors.orderSize}</span>}
                     </div>
                     <select
                         name="orderSize"
@@ -162,9 +158,9 @@ const OrderForm = () => {
                     <div className="city">
                         <div className="label-form">
                             <label htmlFor="city-select">City</label>
-                            {formik.errors.orderCity && formik.touched.orderCity ? (
+                            {formik.errors.orderCity && formik.touched.orderCity && (
                                 <span className="validation-text">{formik.errors.orderCity}</span>
-                            ) : null}
+                            )}
                         </div>
                         <select
                             name="orderCity"
