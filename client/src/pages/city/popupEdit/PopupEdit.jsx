@@ -51,7 +51,7 @@ const PopupEdit = ({ currentId }) => {
                             </button>
                         </div>
                         <form onSubmit={handleSubmit}>
-                            {errors.cityName && touched.cityName ? <span className="validation-text">{errors.cityName}</span> : null}
+                            {errors.cityName && touched.cityName && <span className="validation-text">{errors.cityName}</span>}
                             <input
                                 value={values.cityName}
                                 onChange={handleChange}

@@ -65,7 +65,7 @@ const PopupAdd = () => {
                             </button>
                         </div>
                         <form onSubmit={handleSubmit}>
-                            {errors.masterName && touched.masterName ? <span className="validation-text">{errors.masterName}</span> : null}
+                            {errors.masterName && touched.masterName && <span className="validation-text">{errors.masterName}</span>}
                             <input
                                 value={values.masterName}
                                 onChange={handleChange}
@@ -77,13 +77,13 @@ const PopupAdd = () => {
                                 maxLength="30"
                             />
                             <h4>Master rating</h4>
-                            {errors.masterRating && touched.masterRating ? <span className="validation-text">{errors.masterRating}</span> : null}
+                            {errors.masterRating && touched.masterRating && <span className="validation-text">{errors.masterRating}</span>}
                             <select name="masterRating" value={values.masterRating} onChange={handleChange} onBlur={handleBlur}>
                                 <option value="">Choose rating of master</option>
                                 {ratingsSelect}
                             </select>
                             <h4>Add city of master</h4>
-                            {errors.masterCity && touched.masterCity ? <span className="validation-text">{errors.masterCity}</span> : null}
+                            {errors.masterCity && touched.masterCity && <span className="validation-text">{errors.masterCity}</span>}
                             <select name="masterCity" value={values.masterCity} onChange={handleChange} onBlur={handleBlur}>
                                 <option value="">Choose city of master</option>
                                 {citySelect}

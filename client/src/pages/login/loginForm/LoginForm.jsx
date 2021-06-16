@@ -55,7 +55,7 @@ const LoginForm = () => {
                         <h1>Log in</h1>
                     </div>
                     <form onSubmit={handleSubmit}>
-                        {errors.email && touched.email ? <span className="validation-text">{errors.email}</span> : null}
+                        {errors.email && touched.email && <span className="validation-text">{errors.email}</span>}
                         <input
                             value={values.email}
                             onChange={handleChange}
@@ -67,7 +67,7 @@ const LoginForm = () => {
                             maxLength="60"
                         />
 
-                        {errors.password && touched.password ? <span className="validation-text">{errors.password}</span> : null}
+                        {errors.password && touched.password && <span className="validation-text">{errors.password}</span>}
                         <input
                             value={values.password}
                             onChange={handleChange}
