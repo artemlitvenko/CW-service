@@ -6,7 +6,7 @@ import { login, loginWithGoogle } from '../../../actions/user';
 import { useDispatch } from 'react-redux';
 import { longEmail, longPassword, needEmail, requiredField } from '../../../constarts/validationMessage';
 import { GoogleLogin } from 'react-google-login';
-import { maxLength, maxPasswordLength } from '../../../constarts/validationValue';
+import { maxEmailLength, maxPasswordLength } from '../../../constarts/validationValue';
 
 const LoginForm = () => {
     const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const LoginForm = () => {
     const validationSchema = useMemo(
         () =>
             Yup.object({
-                email: Yup.string().required(requiredField).email(needEmail).max(maxLength, longEmail),
+                email: Yup.string().required(requiredField).email(needEmail).max(maxEmailLength, longEmail),
                 password: Yup.string().required(requiredField).max(maxPasswordLength, longPassword),
             }),
         [],
