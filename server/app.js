@@ -7,7 +7,7 @@ const orderRouter = require('./routes/order.routes.js');
 const clientRouter = require('./routes/client.routes.js');
 const corsMiddleware = require('./middleware/cors.middleware');
 const cors = require('cors');
-const path = require('path');
+//const path = require('path');
 
 app.use(cors());
 app.use(corsMiddleware);
@@ -18,6 +18,6 @@ app.use('/api/master', masterRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/client', clientRouter);
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+//app.use(express.static(path.join(__dirname, 'client/build')));
 
 module.exports = app;
