@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const express = require('express');
+//const express = require('express');
 const config = require('./config');
 const app = require('./app');
 
@@ -10,13 +10,13 @@ const start = async () => {
             useUnifiedTopology: true,
         });
 
-        if (process.env.NODE_ENV === 'production') {
+        /*if (process.env.NODE_ENV === 'production') {
             app.use(express.static('../client/build'));
 
             app.get('*', (req, res) => {
                 res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
             });
-        }
+        }*/
 
         app.listen(config.PORT, () => {
             console.log('Server started on port ', config.PORT);

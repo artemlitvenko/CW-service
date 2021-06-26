@@ -34,7 +34,7 @@ const OrderForm = () => {
         }),
         onSubmit: (values) => {
             dispatch(getMastersForOrder(values.orderCity, orderDate, endDate));
-            console.log('Order Form >>> values.orderCity, orderDate, endDate', values.orderCity, orderDate, endDate);
+            //console.log('Order Form >>> values.orderCity, orderDate, endDate', values.orderCity, orderDate, endDate);
             dispatch(setMastersLoaded(false));
         },
     });

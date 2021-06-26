@@ -23,7 +23,7 @@ exports.cityValidators = [
     check('city_name', `Name must be longer than ${minLength} and shorter than ${maxLength}`).isLength({ min: minLength, max: maxLength }).trim(),
 ];
 
-exports.masterValidators = [
+exports.masterEditValidators = [
     check('name', `Name must be longer than ${minLength} and shorter than ${maxLength}`).isLength({ min: minLength, max: maxLength }).trim(),
     check('rating', `Rating must be a number between ${minRatingLength} and ${maxRatingLength}`).isFloat({
         min: minRatingLength,
@@ -31,6 +31,14 @@ exports.masterValidators = [
     }),
     check('city', 'City must be MongoId').isMongoId().trim(),
     check('id', 'Id must be MongoId').isMongoId().trim(),
+];
+exports.masterPostValidators = [
+    check('name', `Name must be longer than ${minLength} and shorter than ${maxLength}`).isLength({ min: minLength, max: maxLength }).trim(),
+    check('rating', `Rating must be a number between ${minRatingLength} and ${maxRatingLength}`).isFloat({
+        min: minRatingLength,
+        max: maxRatingLength,
+    }),
+    check('city', 'City must be MongoId').isMongoId().trim(),
 ];
 exports.masterDeleteValidators = [check('id', 'Id must be MongoId').isMongoId().trim()];
 

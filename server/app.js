@@ -18,6 +18,4 @@ app.use('/api/master', masterRouter);
 app.use('/api/order', orderRouter);
 app.use('/api/client', clientRouter);
 
-//app.use(express.static(path.join(__dirname, 'client/build')));
-
 module.exports = app;
