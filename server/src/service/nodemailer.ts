@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport(
     {
@@ -14,12 +14,10 @@ const transporter = nodemailer.createTransport(
         from: 'Clockwise Service <clockwise.service.info@gmail.com>',
     },
 );
-
-const mailer = (message) => {
+// @ts-ignore
+export const mailer = (message) => {
     transporter.sendMail(message, (err, info) => {
         if (err) return console.log(err);
         console.log('Email sent: ', info);
     });
 };
-
-module.exports = mailer;
